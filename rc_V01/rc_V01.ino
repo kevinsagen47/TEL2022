@@ -17,6 +17,7 @@ int channel_[10]={0,1,2,3,4,5,6,7,8,9};
 int forward,side,turn;
 int f_r,f_l,b_r,b_l;
 int _f_r,_f_l,_b_r,_b_l;
+int minimum_pwm=40;
 //1: x_r
 //2: y_r
 //3: y_l
@@ -39,7 +40,8 @@ void setup() {
   pinMode(21, INPUT);
   pinMode(17, INPUT);
 
-  
+  pinMode(43,1);
+  digitalWrite(43,1);
 
   pinMode(13,1);
   pinMode(12,1);
@@ -65,18 +67,18 @@ for (byte channel = 1; channel <= channelAmount; ++channel) {
     }
 
   if(channel_[2]>50){
-    if(channel_[2]>1549)forward=map(channel_[2],1550,2000,0,255);
-    else if (channel_[2]<1450) forward=-1*map(channel_[2],1450,1000,0,255);
+    if(channel_[2]>1549)forward=map(channel_[2],1550,2000,minimum_pwm,255);
+    else if (channel_[2]<1450) forward=-1*map(channel_[2],1450,1000,minimum_pwm,255);
     else forward=0;
 
     if (channel_[1]>50){
-      if(channel_[1]>1549)side=map(channel_[1],1550,2000,0,255);
-      else if (channel_[1]<1450)side=-1*map(channel_[1],1450,1000,0,255);
+      if(channel_[1]>1549)side=map(channel_[1],1550,2000,minimum_pwm,255);
+      else if (channel_[1]<1450)side=-1*map(channel_[1],1450,1000,minimum_pwm,255);
       else side=0;}
 
     if (channel_[4]>50){
-      if(channel_[4]>1549)turn=map(channel_[4],1550,2000,0,255);
-      else if (channel_[4]<1450)turn=-1*map(channel_[4],1450,1000,0,255);
+      if(channel_[4]>1549)turn=map(channel_[4],1550,2000,minimum_pwm,255);
+      else if (channel_[4]<1450)turn=-1*map(channel_[4],1450,1000,minimum_pwm,255);
       else turn=0;}
     
     //backward=0;
@@ -95,8 +97,16 @@ for (byte channel = 1; channel <= channelAmount; ++channel) {
   //Serial.print(forward);
   //Serial.print("  ");
   //Serial.print(backward);
-  Serial.print(channel_[4]);
+  Serial.print(f_r);
+  Serial.print("  ");
+  Serial.print(f_l);
+  Serial.print("  ");
+  Serial.print(b_r);
+  Serial.print("  ");
+  Serial.print(b_l);
+  Serial.print("  ");
   Serial.println();
+  
   
   
   

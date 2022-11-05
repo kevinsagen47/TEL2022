@@ -1,3 +1,47 @@
+//callibrate position with front IR
+
+
+void cal_front(int distance){
+  count_attempt=0;
+  while ((right_ir>distance || right_ir<distance-dist_tol 
+          || left_ir>distance || left_ir<distance-dist_tol)&&count_attempt<max_attempt){
+  cal_front_mini(distance);
+  wait(1000);
+  //cal_front_mini(distance);
+  count_attempt++;
+  }
+  Serial.println(count_attempt);
+}
+
+void cal_front_mini(int distance){
+  right_ir=analogRead(A0);
+  left_ir =analogRead(A1);
+  while (right_ir>distance || right_ir<distance-dist_tol 
+          || left_ir>distance || left_ir<distance-dist_tol){
+    
+    right_ir=analogRead(A0);
+    left_ir =analogRead(A1);
+
+    if(right_ir<distance-dist_tol && left_ir<distance-dist_tol)forward_speed(cal_speed);
+      //if(prev_dir==0)forward_speed(cal_speed);
+      //else wait(100);prev_dir=0;}
+    else if(right_ir>distance && left_ir>distance)forward_speed(-cal_speed);
+      //if(prev_dir==1)forward_speed(-cal_speed);
+      //else wait(100);prev_dir=1;}
+    else if(right_ir>distance || left_ir<distance-dist_tol)turn_speed(cal_speed);
+        //if(prev_dir==2)turn_speed(cal_speed);
+        //else wait(100);prev_dir=2;}
+    else if(left_ir>distance || right_ir<distance-dist_tol)turn_speed(-cal_speed);
+        //if(prev_dir==3)turn_speed(-cal_speed);
+        //else wait(100);prev_dir=3;}
+    delayMicroseconds(delaymic);
+    Serial.print(left_ir);
+  Serial.print("  ");
+  Serial.println(right_ir);
+  }
+  
+}
+
 void encoder4(){
   if(digitalRead(17) == HIGH)encoder_pos4++;
   else encoder_pos4--;}
@@ -23,6 +67,17 @@ void getppm(){
     }
 }
 
+void print_pwm(){
+
+  Serial.print(motor_value1);
+  Serial.print("  ");
+  Serial.print(motor_value2);
+  Serial.print("  ");
+  Serial.print(motor_value3);
+  Serial.print("  ");
+  Serial.print(motor_value4);
+  Serial.println();
+}
 void print_encoder(){
 
   Serial.print("Enc: ");
