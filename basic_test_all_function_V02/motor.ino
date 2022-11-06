@@ -211,6 +211,7 @@ void m1f(int power){
   analogWrite(12, 0);
   }else{
     t1=0;
+    _t1=0;
     analogWrite(12, 0);
     analogWrite(13, 0);
   }}
@@ -218,6 +219,7 @@ void m1f(int power){
 //m1 backward
 void m1b(int power){
   if(power > 10){
+    _t1=power*0.2;
   analogWrite(12, power+_offset1);
   analogWrite(13, 0);
   }else{
@@ -230,9 +232,12 @@ void m1b(int power){
 //m2 foward
 void m2f(int power){
   if(power > 10){
+  t2=power*0.2;  
   analogWrite(11, power+offset2);
   analogWrite(10, 0);
   }else{
+    t2=0;
+    _t2=0;
     analogWrite(11, 0);
     analogWrite(10, 0);
   }
@@ -241,9 +246,12 @@ void m2f(int power){
 //m2 backward
 void m2b(int power){
   if(power > 10){
+    _t2=power*0.2;
   analogWrite(10, power+_offset2);
   analogWrite(11, 0);
   }else{
+    t2=0;
+    _t2=0;
     analogWrite(11, 0);
     analogWrite(10, 0);
   }
@@ -252,9 +260,12 @@ void m2b(int power){
 //m3 foward
 void m3f(int power){
   if(power > 10){
+    t3=power*0.2;
   analogWrite(9, power+offset3);
   analogWrite(8, 0);
   }else{
+    t3=0;
+    _t3=0;
     analogWrite(9, 0);
     analogWrite(8, 0);
   }
@@ -263,9 +274,12 @@ void m3f(int power){
 //m3 backward
 void m3b(int power){
   if(power > 10){
+    _t3=power*0.2;
   analogWrite(8, power+_offset3);
   analogWrite(9, 0);
   }else{
+    t3=0;
+    _t3=0;
     analogWrite(9, 0);
     analogWrite(8, 0);
   }
@@ -274,9 +288,12 @@ void m3b(int power){
 //m4 foward
 void m4f(int power){
   if(power > 10){
+    t4=power*0.2;
   analogWrite(7, power+offset4);
   analogWrite(6, 0);
   }else{
+    t4=0;
+    _t4=0;
     analogWrite(6, 0);
     analogWrite(7, 0);
   }
@@ -285,9 +302,12 @@ void m4f(int power){
 //m4 backward
 void m4b(int power){
   if(power > 10){
+    _t4=power*0.2;
   analogWrite(6, power+_offset4);
   analogWrite(7, 0);
   }else{
+    t4=0;
+    _t4=0;
     analogWrite(6, 0);
     analogWrite(7, 0);
   }

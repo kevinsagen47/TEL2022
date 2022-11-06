@@ -2,6 +2,16 @@
 
 
 void cal_front(int distance){
+  done_waiting=false;
+
+  while(done_waiting&&count_attempt<max_attempt){}
+  cal_front_mini(distance);
+
+  wait(1000);
+  count_attempt++;
+  if(right_ir>distance && right_ir<distance-dist_tol && left_ir>distance && left_ir<distance-dist_tol)done_waiting=true;
+
+  /*
   count_attempt=0;
   while ((right_ir>distance || right_ir<distance-dist_tol 
           || left_ir>distance || left_ir<distance-dist_tol)&&count_attempt<max_attempt){
@@ -9,7 +19,7 @@ void cal_front(int distance){
   wait(1000);
   //cal_front_mini(distance);
   count_attempt++;
-  }
+  }*/
   Serial.println(count_attempt);
 }
 
