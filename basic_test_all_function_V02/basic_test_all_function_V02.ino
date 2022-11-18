@@ -189,12 +189,12 @@ void loop() {
   //*
   wait(500);
   //forward_degree(100,400);wait(1000);forward_degree(75,-400);
-  //side_degree(75,400);wait(1000);side_degree(75,-400);
+  side_degree(75,400);wait(1000);side_degree(75,-400);
   //side_degree(75,400);wait(500);forward_degree(100,400);wait(500);side_degree(75,-400);wait((500));forward_degree(100,-400);
   //turn_degree(150,-100);wait(1000);turn_degree(150,100);
   
   
-  cal_front(500);
+  cal_front(500);//max 550
   Serial.println("done");
   while(1){
     wait(1000);
