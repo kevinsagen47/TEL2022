@@ -54,56 +54,13 @@ void setup_robot(){
   if(speed_correction==true){
   TimeInterrupt.begin(NORMAL); 
   TimeInterrupt.addInterrupt(callback, 40);//calculate speed interupt
-  TimeInterrupt.addInterrupt(callback2, 40);//speed correction interupt}
   /*
   Timer1.initialize(1000000);
   Timer1.attachInterrupt(callback);
   */}
   delay(100);
 }
-void callback2(){//speed correction function
-if(speed_correction){  
-Serial.print(speed1);
-    Serial.print(" ");
-    Serial.print(speed2);
-    Serial.print(" ");
-    Serial.print(speed3);
-    Serial.print(" ");
-    Serial.println(speed4);
-  if(t1!=0){
-  if(speed1<t1)  offset1++;
-  else if(speed1+speed_tol>t1)  offset1--;}
-
-  if(t2!=0){
-  if(speed2<t2)  offset2++;
-  else if(speed2+speed_tol>t2)  offset2--;}
-
-  if(t3!=0){
-  if(speed3<t3)  offset3++;
-  else if(speed3+speed_tol>t3)  offset3--;}
-
-  if(t4!=0){
-  if(speed4<t4)  offset4++;
-  else if(speed4+speed_tol>t4)  offset4--;}
-  
-  if(_t1!=0){
-  if(-1*speed1<_t1)  _offset1++;
-  else if(-1*speed1+speed_tol>t1)  _offset1--;}
-  
-  if(_t2!=0){
-  if(-1*speed2<_t2)  _offset2++;
-  else if(-1*speed2+speed_tol>t2)  _offset2--;}
-
-  if(_t3!=0){
-  if(-1*speed3<_t3)  _offset3++;
-  else if(-1*speed3+speed_tol>t3)  _offset3--;}
-
-  if(_t4!=0){
-  if(-1*speed4<_t4)  _offset4++;
-  else if(-1*speed4+speed_tol>t4)  _offset4--;}
-}
-}
-void callback(){//calculate speed
+void callback(){//calculate speed FOR PWM CALIBRATION
   speed1=encoder_pos1-prev_encoder_pos1;
   prev_encoder_pos1=encoder_pos1;
 
@@ -115,24 +72,32 @@ void callback(){//calculate speed
 
   speed4=encoder_pos4-prev_encoder_pos4;
   prev_encoder_pos4=encoder_pos4;
+
+  Serial.print(speed1);
+    Serial.print(" ");
+    Serial.print(speed2);
+    Serial.print(" ");
+    Serial.print(speed3);
+    Serial.print(" ");
+    Serial.println(speed4);
 }
 
 //forward with certain speed, input -255-0, 0-255, minus means backward
 void forward_degree(int speed,int degree){
-  a=encoder_pos1+degree;
+  a=encoder_pos1+degree;//input target
   b=encoder_pos2+degree;
   c=encoder_pos3+degree;
   d=encoder_pos4+degree;
   pid_limit(start_pwm);
   current_speed=start_pwm;
-  while(encoder_pos1<(a-tolerance) || encoder_pos1>(a+tolerance)
+  while(encoder_pos1<(a-tolerance) || encoder_pos1>(a+tolerance)//whhile target not yet reached
         ||encoder_pos2<(b-tolerance) || encoder_pos2>(b+tolerance) 
         ||encoder_pos3<(c-tolerance) || encoder_pos3>(c+tolerance)
         ||encoder_pos4<(d-tolerance) || encoder_pos4>(d+tolerance)
         || stationary==0){
     elapsed=millis();
 
-    if(encoder_pos1<(a-tolerance) || encoder_pos1>(a+tolerance)
+    if(encoder_pos1<(a-tolerance) || encoder_pos1>(a+tolerance)//motor jitter but not working
        ||encoder_pos2<(b-tolerance) || encoder_pos2>(b+tolerance)
        ||encoder_pos3<(c-tolerance) || encoder_pos3>(c+tolerance)
        ||encoder_pos4<(d-tolerance) || encoder_pos4>(d+tolerance))elapsedd=millis();

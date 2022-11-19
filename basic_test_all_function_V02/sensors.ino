@@ -1,29 +1,9 @@
 //callibrate position with front IR
 
 
-void cal_front(int distance){//DO NOT USE
-  done_waiting=false;
-  count_attempt=0;
-  //while(done_waiting&&count_attempt<max_attempt){
-  cal_front_mini(distance);
 
-  wait(1000);
-  count_attempt++;
-  if(right_ir>distance && right_ir<distance-dist_tol && left_ir>distance && left_ir<distance-dist_tol)done_waiting=true;
 
-  /*
-  count_attempt=0;
-  while ((right_ir>distance || right_ir<distance-dist_tol 
-          || left_ir>distance || left_ir<distance-dist_tol)&&count_attempt<max_attempt){
-  cal_front_mini(distance);
-  wait(1000);
-  //cal_front_mini(distance);
-  count_attempt++;
-  }*/
-  Serial.println(count_attempt);//}
-}
-
-void cal_front_mini(int distance){
+void cal_front(int distance){
   right_ir=analogRead(A0);
   left_ir =analogRead(A1);
   while (right_ir>distance || right_ir<distance-dist_tol 
@@ -51,18 +31,8 @@ void cal_front_mini(int distance){
   }
 }
 
-void cal_right(int distance){//DO NOT USE
-  done_waiting=false;
-  count_attempt=0;
-  while(done_waiting&&count_attempt<max_attempt){
-  cal_right_mini(distance);
-  wait(1000);
-  count_attempt++;
-  if(front_right_ir>distance && front_right_ir<distance-dist_tol && rear_right_ir>distance && rear_right_ir<distance-dist_tol)done_waiting=true;
-  Serial.println(count_attempt);}
-}
 
-void cal_right_mini(int distance){
+void cal_right(int distance){
   front_right_ir=analogRead(A2); 
   rear_right_ir =analogRead(A4);
   while (front_right_ir>distance || front_right_ir<distance-dist_tol 

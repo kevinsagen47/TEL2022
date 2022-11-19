@@ -1,6 +1,7 @@
 ////////////////////////USER ADJUSTABLESSSSS//////////////////////////////
 int minimum_pwm=70,_minimum_pwm=-70;
-int start_pwm=90,end_pwm=90, tolerance=5;//start speed, if too fast can slip
+int start_pwm=80,end_pwm=70;//start speed, if too fast can slip
+int  tolerance=5;//可接受誤差
 int offset1=-4,offset2=-9,offset3=-4,offset4=-14;
 #include <PIDController.h>
 #include <TimeInterrupt.h>
@@ -44,7 +45,8 @@ int a,b,c,d,stationary;
 //int minimum_pwm2=50,minimum_pwm3=50,minimum_pwm4=50,_minimum_pwm2=-50,_minimum_pwm3=-50,_minimum_pwm4=-50;
 int minimum_pwm2=minimum_pwm,minimum_pwm3=minimum_pwm,minimum_pwm4=minimum_pwm,_minimum_pwm2=_minimum_pwm,_minimum_pwm3=_minimum_pwm,_minimum_pwm4=_minimum_pwm;
 //int minimum_pwm=100,minimum_pwm2=100,minimum_pwm3=100,minimum_pwm4=100;
-int current_speed,speed_time,speed_time_var=20;
+int current_speed,speed_time;
+int speed_time_var=20;//accel slope, the smaller number, accel faster
 unsigned long elapsed, elapsedd,timee,timeee;
 int prev_dir=0;
 int max_attempt=5,count_attempt;
@@ -73,8 +75,8 @@ void loop() {
   //turn_degree(150,-200);wait(1000);turn_degree(150,200);
   
   
-  //cal_front_mini(400);//max 550
-  cal_right_mini(550);
+  cal_front_mini(400);//max 550
+  //cal_right_mini(550);
   Serial.println("done");
   /*
   while(1){
