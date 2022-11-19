@@ -1,6 +1,6 @@
 ////////////////////////USER ADJUSTABLESSSSS//////////////////////////////
 int minimum_pwm=70,_minimum_pwm=-70;
-int start_pwm=100,end_pwm=100, tolerance=5;//start speed, if too fast can slip
+int start_pwm=90,end_pwm=90, tolerance=5;//start speed, if too fast can slip
 int offset1=-4,offset2=-9,offset3=-4,offset4=-14;
 #include <PIDController.h>
 #include <TimeInterrupt.h>
@@ -52,6 +52,8 @@ unsigned speed_timer1,speed_timer2,speed_timer3,speed_timer4;
 int t1,t2,t3,t4;
 int _t1,_t2,_t3,_t4;
 int speed_tol=3;
+int front_right_ir,rear_right_ir;
+int front_left_ir,rear_left_ir;
 bool speed_correction=false,done_waiting=false;
 
 
@@ -71,7 +73,8 @@ void loop() {
   //turn_degree(150,-200);wait(1000);turn_degree(150,200);
   
   
-  cal_front(400);//max 550
+  //cal_front_mini(400);//max 550
+  cal_right_mini(550);
   Serial.println("done");
   /*
   while(1){

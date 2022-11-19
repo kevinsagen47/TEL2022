@@ -1,10 +1,10 @@
 //callibrate position with front IR
 
 
-void cal_front(int distance){
+void cal_front(int distance){//DO NOT USE
   done_waiting=false;
-
-  while(done_waiting&&count_attempt<max_attempt){}
+  count_attempt=0;
+  //while(done_waiting&&count_attempt<max_attempt){
   cal_front_mini(distance);
 
   wait(1000);
@@ -20,7 +20,7 @@ void cal_front(int distance){
   //cal_front_mini(distance);
   count_attempt++;
   }*/
-  Serial.println(count_attempt);
+  Serial.println(count_attempt);//}
 }
 
 void cal_front_mini(int distance){
@@ -49,8 +49,47 @@ void cal_front_mini(int distance){
   Serial.print("  ");
   Serial.println(right_ir);
   }
-  
 }
+
+void cal_right(int distance){//DO NOT USE
+  done_waiting=false;
+  count_attempt=0;
+  while(done_waiting&&count_attempt<max_attempt){
+  cal_right_mini(distance);
+  wait(1000);
+  count_attempt++;
+  if(front_right_ir>distance && front_right_ir<distance-dist_tol && rear_right_ir>distance && rear_right_ir<distance-dist_tol)done_waiting=true;
+  Serial.println(count_attempt);}
+}
+
+void cal_right_mini(int distance){
+  front_right_ir=analogRead(A2); 
+  rear_right_ir =analogRead(A4);
+  while (front_right_ir>distance || front_right_ir<distance-dist_tol 
+          || rear_right_ir>distance || rear_right_ir<distance-dist_tol){
+    
+    front_right_ir=analogRead(A2);
+    rear_right_ir =analogRead(A4);
+
+    if(front_right_ir<distance-dist_tol && rear_right_ir<distance-dist_tol)side_speed(cal_speed);
+      //if(prev_dir==0)forward_speed(cal_speed);
+      //else wait(100);prev_dir=0;}
+    else if(front_right_ir>distance && rear_right_ir>distance)side_speed(-cal_speed);
+      //if(prev_dir==1)forward_speed(-cal_speed);
+      //else wait(100);prev_dir=1;}
+    else if(front_right_ir>distance || rear_right_ir<distance-dist_tol)turn_speed(-cal_speed);
+        //if(prev_dir==2)turn_speed(cal_speed);
+        //else wait(100);prev_dir=2;}
+    else if(rear_right_ir>distance || front_right_ir<distance-dist_tol)turn_speed(cal_speed);
+        //if(prev_dir==3)turn_speed(-cal_speed);
+        //else wait(100);prev_dir=3;}
+    delayMicroseconds(delaymic);
+    Serial.print(rear_right_ir);
+  Serial.print("  ");
+  Serial.println(front_right_ir);
+  }
+}
+
 
 void encoder4(){
   if(digitalRead(17) == HIGH)encoder_pos4++;
