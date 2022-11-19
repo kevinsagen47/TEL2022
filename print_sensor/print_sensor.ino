@@ -9,5 +9,4 @@ void loop() {
   Serial.print(" ");
   Serial.print(analogRead(A1));
   Serial.println();
-  prit lalalalallalalla
 }
