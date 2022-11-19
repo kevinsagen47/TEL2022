@@ -1,3 +1,122 @@
+void setup_robot(){
+  Serial.begin(115200);
+  pinMode(18, INPUT);
+  pinMode(14, INPUT);
+  
+  pinMode(19, INPUT);
+  pinMode(15, INPUT);
+  
+  pinMode(20, INPUT);
+  pinMode(16, INPUT);
+  
+  pinMode(21, INPUT);
+  pinMode(17, INPUT);
+  
+  pinMode(6, OUTPUT);
+  pinMode(7, OUTPUT);
+  
+  pinMode(13,1);
+  pinMode(12,1);
+  pinMode(11,1);
+  pinMode(10,1);
+  pinMode(9,1);
+  pinMode(8,1);
+  pinMode(7,1);
+  pinMode(6,1);
+
+  pinMode(43,1);
+  digitalWrite(43,1);
+  pinMode(42, INPUT_PULLUP);
+  attachInterrupt(digitalPinToInterrupt(18), encoder, RISING);
+  attachInterrupt(digitalPinToInterrupt(19), encoder2, RISING);
+  attachInterrupt(digitalPinToInterrupt(20), encoder3, RISING);
+  attachInterrupt(digitalPinToInterrupt(21), encoder4, RISING);
+
+  pos_pid1.begin();    
+  pos_pid1.tune(100, 0, 4000);    
+  pos_pid1.limit(-255, 255);
+  pos_pid1.setpoint(0);
+
+  pos_pid2.begin();    
+  pos_pid2.tune(100, 0, 4000);    
+  pos_pid2.limit(-255, 255);
+  pos_pid2.setpoint(0);
+
+  pos_pid3.begin();    
+  pos_pid3.tune(100, 0, 4000);    
+  pos_pid3.limit(-255, 255);
+  pos_pid3.setpoint(0);
+
+  pos_pid4.begin();    
+  pos_pid4.tune(100, 0, 4000);    
+  pos_pid4.limit(-255, 255);
+  pos_pid4.setpoint(0);
+  if(speed_correction==true){
+  TimeInterrupt.begin(NORMAL); 
+  TimeInterrupt.addInterrupt(callback, 40);//calculate speed interupt
+  TimeInterrupt.addInterrupt(callback2, 40);//speed correction interupt}
+  /*
+  Timer1.initialize(1000000);
+  Timer1.attachInterrupt(callback);
+  */}
+  delay(100);
+}
+void callback2(){//speed correction function
+if(speed_correction){  
+Serial.print(speed1);
+    Serial.print(" ");
+    Serial.print(speed2);
+    Serial.print(" ");
+    Serial.print(speed3);
+    Serial.print(" ");
+    Serial.println(speed4);
+  if(t1!=0){
+  if(speed1<t1)  offset1++;
+  else if(speed1+speed_tol>t1)  offset1--;}
+
+  if(t2!=0){
+  if(speed2<t2)  offset2++;
+  else if(speed2+speed_tol>t2)  offset2--;}
+
+  if(t3!=0){
+  if(speed3<t3)  offset3++;
+  else if(speed3+speed_tol>t3)  offset3--;}
+
+  if(t4!=0){
+  if(speed4<t4)  offset4++;
+  else if(speed4+speed_tol>t4)  offset4--;}
+  
+  if(_t1!=0){
+  if(-1*speed1<_t1)  _offset1++;
+  else if(-1*speed1+speed_tol>t1)  _offset1--;}
+  
+  if(_t2!=0){
+  if(-1*speed2<_t2)  _offset2++;
+  else if(-1*speed2+speed_tol>t2)  _offset2--;}
+
+  if(_t3!=0){
+  if(-1*speed3<_t3)  _offset3++;
+  else if(-1*speed3+speed_tol>t3)  _offset3--;}
+
+  if(_t4!=0){
+  if(-1*speed4<_t4)  _offset4++;
+  else if(-1*speed4+speed_tol>t4)  _offset4--;}
+}
+}
+void callback(){//calculate speed
+  speed1=encoder_pos1-prev_encoder_pos1;
+  prev_encoder_pos1=encoder_pos1;
+
+  speed2=encoder_pos2-prev_encoder_pos2;
+  prev_encoder_pos2=encoder_pos2;
+  
+  speed3=encoder_pos3-prev_encoder_pos3;
+  prev_encoder_pos3=encoder_pos3;
+
+  speed4=encoder_pos4-prev_encoder_pos4;
+  prev_encoder_pos4=encoder_pos4;
+}
+
 //forward with certain speed, input -255-0, 0-255, minus means backward
 void forward_degree(int speed,int degree){
   a=encoder_pos1+degree;
