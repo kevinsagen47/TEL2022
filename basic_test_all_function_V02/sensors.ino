@@ -54,12 +54,43 @@ void cal_right(int distance){
         //if(prev_dir==3)turn_speed(-cal_speed);
         //else wait(100);prev_dir=3;}
     delayMicroseconds(delaymic);
+    /*
     Serial.print(rear_right_ir);
   Serial.print("  ");
   Serial.println(front_right_ir);
+  */
   }
 }
 
+void cal_left(int distance){
+  front_left_ir=analogRead(A3); 
+  rear_left_ir =analogRead(A5);
+  while (front_left_ir>distance || front_left_ir<distance-dist_tol 
+          || rear_left_ir>distance || rear_left_ir<distance-dist_tol){
+    
+    front_left_ir=analogRead(A3);
+    rear_left_ir =analogRead(A5);
+
+    if(front_left_ir<distance-dist_tol && rear_left_ir<distance-dist_tol)side_speed(-cal_speed);
+      //if(prev_dir==0)forward_speed(cal_speed);
+      //else wait(100);prev_dir=0;}
+    else if(front_left_ir>distance && rear_left_ir>distance)side_speed(cal_speed);
+      //if(prev_dir==1)forward_speed(-cal_speed);
+      //else wait(100);prev_dir=1;}
+    else if(front_left_ir>distance || rear_left_ir<distance-dist_tol)turn_speed(cal_speed);
+        //if(prev_dir==2)turn_speed(cal_speed);
+        //else wait(100);prev_dir=2;}
+    else if(rear_left_ir>distance || front_left_ir<distance-dist_tol)turn_speed(-cal_speed);
+        //if(prev_dir==3)turn_speed(-cal_speed);
+        //else wait(100);prev_dir=3;}
+    delayMicroseconds(delaymic);
+    /*
+    Serial.print(rear_left_ir);
+  Serial.print("  ");
+  Serial.println(front_left_ir);
+  */
+  }
+}
 
 void encoder4(){
   if(digitalRead(17) == HIGH)encoder_pos4++;

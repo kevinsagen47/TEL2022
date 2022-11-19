@@ -6,8 +6,8 @@ int offset1=-4,offset2=-9,offset3=-4,offset4=-14;
 #include <PIDController.h>
 #include <TimeInterrupt.h>
 int _offset1=-2,_offset2=5,_offset3=2,_offset4=3;
-int dist_tol=5;//distance tolerance
-int cal_speed=60;
+int dist_tol=5;//distance tolerance(紅外線可接受的誤差值)
+int cal_speed=70;
 //////////////////////////////////////////////////////////////////////////
 
 
@@ -65,29 +65,21 @@ void setup() {
 
 
 void loop() {
-  //getppm();
+
   while(digitalRead(42))wait(100);
   
   wait(500);
-  //forward_degree(100,200);wait(1000);forward_degree(75,-200);
+  
+  
+  
+
+  cal_left(550);
+  Serial.println("done");
+
+}
+  //getppm();
+//forward_degree(100,200);wait(1000);forward_degree(75,-200);
   //side_degree(150,300);wait(1000);side_degree(150,-300);
   //side_degree(75,400);wait(500);forward_degree(100,400);wait(500);side_degree(75,-400);wait((500));forward_degree(100,-400);
   //turn_degree(150,-200);wait(1000);turn_degree(150,200);
-  
-  
-  cal_front_mini(400);//max 550
-  //cal_right_mini(550);
-  Serial.println("done");
-  /*
-  while(1){
-    wait(1000);
-    right_ir=analogRead(A0);
-    left_ir =analogRead(A1);
-    Serial.print(left_ir);
-  Serial.print("  ");
-  Serial.println(right_ir);
-    //delay(100);
-    */
-  //print_encoder();
- 
-}
+    //cal_front(400);//max 550

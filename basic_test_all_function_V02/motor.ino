@@ -403,3 +403,16 @@ void pid_limit(int limit){
   pos_pid3.limit(-1*limit, limit);
   pos_pid4.limit(-1*limit, limit);
 }
+
+  /*
+  while(1){
+    wait(1000);
+    right_ir=analogRead(A0);
+    left_ir =analogRead(A1);
+    Serial.print(left_ir);
+  Serial.print("  ");
+  Serial.println(right_ir);
+    //delay(100);
+    */
+  //print_encoder();
+ 
