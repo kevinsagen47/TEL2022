@@ -73,6 +73,7 @@ void loop() {
   
   cal_front(400);//max 550
   Serial.println("done");
+  //this is a test
   /*
   while(1){
     wait(1000);
