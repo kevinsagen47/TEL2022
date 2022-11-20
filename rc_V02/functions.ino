@@ -16,7 +16,20 @@ void all_stop(){
   analogWrite(7,0);
   analogWrite(6,0);
 }
-
+void print_servo(){
+  Serial.print(pos1);
+  Serial.print("  ");
+  Serial.print(pos2);
+  Serial.print("  ");
+  Serial.print(pos3);
+  Serial.print("  ");
+  Serial.print(pos4);
+  Serial.print("  ");
+  Serial.print(pos5);
+  Serial.print("  ");
+  Serial.print(pos6);
+  Serial.println();
+}
 void print_channels(){
   Serial.print(channel_[1]);
   Serial.print(" ");

@@ -1,11 +1,13 @@
+#include <PIDController.h>
+#include <Servo.h>
+//#include <TimeInterrupt.h>
+
 ////////////////////////USER ADJUSTABLESSSSS//////////////////////////////
 int minimum_pwm=70,_minimum_pwm=-70;//EX.機器人要移動100度，但超過5度，調誤差回的速度
 int start_pwm=80,end_pwm=70;//start speed, if too fast can slip
 int  tolerance=5;//可接受誤差
 int offset1=-4,offset2=-9,offset3=-4,offset4=-14;//pwm forward  (前進四輪速度的補值)
 int _offset1=-2,_offset2=5,_offset3=2,_offset4=3;//pwm backwards(後退四輪速度的補值)
-#include <PIDController.h>
-#include <TimeInterrupt.h>
 int dist_tol=5;//distance tolerance(紅外線可接受的誤差值)
 int cal_speed=70;
 bool speed_correction=false;//ture=要測四輪的速度 prints speed, degree/100ms
@@ -13,6 +15,27 @@ bool speed_correction=false;//ture=要測四輪的速度 prints speed, degree/10
 
 
 
+
+
+int popping;
+
+
+Servo servo1;
+Servo servo2;
+Servo servo3;
+Servo servo4;
+Servo servo5;
+Servo servo6;
+
+int home1_=80,home2_=130,home3_=180,home4_=100,home6_=90,home5_;//folded out positition, prepare to take (degree)
+int home1=80,home2=110,home3=1,home4=90,home5=90,home6=90;//start position (hand folded <30cm)
+int pos1=home1,pos2=home2,pos3=home3,pos4=home4,pos5=home5,pos6=home6;
+int min_speed=20,max_speed=8;//servo delay time
+int sdelayt=20,delayt=max_speed,loading=0;
+int delay1,delay2,delay3,delay4,delay5;
+int max1=180,max2=140,max3=180,max4=180,max5=180;
+int min1=0,min2=0,min3=0,min4=0,min5=0;
+unsigned long time1,time2,time3,time4,time5,addtime;
 
 
 
@@ -62,6 +85,19 @@ bool done_waiting=false;
 
 void setup() {
   setup_robot();
+  
+  servo1.attach(3);
+  servo2.attach(4);
+  servo3.attach(5);
+  servo4.attach(44);
+  servo5.attach(45);
+  servo6.attach(46);
+
+  servo1.write(pos1);
+  servo2.write(pos2);
+  servo3.write(pos3);
+  servo4.write(pos4);
+  servo5.write(180-pos4);
 }
 
 
@@ -69,15 +105,17 @@ void loop() {
   
   while(digitalRead(42))wait(100);
   
-  wait(500);
-  
-  
   
 
-  cal_left(550);
+  
+  
+  take_1_cube(); 
+  //cal_left(550);
+  //while(1)print_servo();
   Serial.println("done");
 
 }
+//stop();
   //getppm();
 //forward_degree(100,200);wait(1000);forward_degree(75,-200);
   //side_degree(150,300);wait(1000);side_degree(150,-300);

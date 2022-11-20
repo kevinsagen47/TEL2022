@@ -26,7 +26,7 @@ int forward,side,turn;
 int f_r,f_l,b_r,b_l;
 int _f_r,_f_l,_b_r,_b_l;
 int minimum_pwm=40;
-int home1_=80,home2_=130,home3_=180,home4_=100,home6_=90,home5_;//folded out positition, prepare to take
+int home1_=80,home2_=130,home3_=180,home4_=100,home6_=90,home5_;//folded out positition, prepare to take (degree)
 int home1=80,home2=110,home3=1,home4=90,home5=90,home6=90;//start position (hand folded <30cm)
 int pos1=home1,pos2=home2,pos3=home3,pos4=home4,pos5=home5,pos6=home6;
 int min_speed=20,max_speed=8;//servo delay time
@@ -96,7 +96,7 @@ void setup() {
 
 void loop() {
   get_ppm();
-  print_channels();
+  //print_channels();
   addtime=millis();
   if(channel_[5]<1300 && channel_[5]>0)motor_control();
   else if (channel_[5]<1600 && channel_[5]>1400){  
@@ -111,5 +111,6 @@ void loop() {
   else all_stop();
   if(loading_function>=1)loading_function();
   update_servo();
-  //Serial.println(loading);
+  print_servo();
+  //delayMicroseconds(100);
   }

@@ -38,7 +38,8 @@ if(loading==2){
 }
 if(loading==3&&(addtime-time3)>1000)loading=1;
  if(loading==1){
-   Serial.println("stuck here");
+   //Serial.println("stuck here");
+   //Serial.println("AHHHHHHHHHHHHHHH");
    if(pos2<home2_){
     if((addtime-time2)>sdelayt){
     pos2++;

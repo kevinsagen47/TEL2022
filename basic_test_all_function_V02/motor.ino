@@ -51,13 +51,14 @@ void setup_robot(){
   pos_pid4.tune(100, 0, 4000);    
   pos_pid4.limit(-255, 255);
   pos_pid4.setpoint(0);
+  /*
   if(speed_correction==true){
   TimeInterrupt.begin(NORMAL); 
   TimeInterrupt.addInterrupt(callback, 100);//calculate speed interupt
   /*
   Timer1.initialize(1000000);
   Timer1.attachInterrupt(callback);
-  */}
+  */
   delay(100);
 }
 void callback(){//calculate speed FOR PWM CALIBRATION
@@ -210,7 +211,13 @@ void wait(int del){
     timee=millis();
   }
 }
-
+void stop(){
+  a=encoder_pos1;
+  b=encoder_pos2;
+  c=encoder_pos3;
+  d=encoder_pos4;
+  run();
+}
 void run(){
     pos_pid1.setpoint(a);  
     motor_value1 = pos_pid1.compute(encoder_pos1);
