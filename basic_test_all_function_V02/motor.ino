@@ -53,7 +53,7 @@ void setup_robot(){
   pos_pid4.setpoint(0);
   if(speed_correction==true){
   TimeInterrupt.begin(NORMAL); 
-  TimeInterrupt.addInterrupt(callback, 40);//calculate speed interupt
+  TimeInterrupt.addInterrupt(callback, 100);//calculate speed interupt
   /*
   Timer1.initialize(1000000);
   Timer1.attachInterrupt(callback);

@@ -2,12 +2,14 @@
 int minimum_pwm=70,_minimum_pwm=-70;
 int start_pwm=80,end_pwm=70;//start speed, if too fast can slip
 int  tolerance=5;//可接受誤差
-int offset1=-4,offset2=-9,offset3=-4,offset4=-14;
+int offset1=-4,offset2=-9,offset3=-4,offset4=-14;//pwm forward
+//int offset1=0,offset2=0,offset3=0,offset4=0;
+int _offset1=-2,_offset2=5,_offset3=2,_offset4=3;//pwm backwards
 #include <PIDController.h>
 #include <TimeInterrupt.h>
-int _offset1=-2,_offset2=5,_offset3=2,_offset4=3;
 int dist_tol=5;//distance tolerance(紅外線可接受的誤差值)
 int cal_speed=70;
+bool speed_correction=false;//prints speed, degree/100ms
 //////////////////////////////////////////////////////////////////////////
 
 
@@ -56,7 +58,7 @@ int _t1,_t2,_t3,_t4;
 int speed_tol=3;
 int front_right_ir,rear_right_ir;
 int front_left_ir,rear_left_ir;
-bool speed_correction=false,done_waiting=false;
+bool done_waiting=false;
 
 
 void setup() {
@@ -65,7 +67,7 @@ void setup() {
 
 
 void loop() {
-
+  
   while(digitalRead(42))wait(100);
   
   wait(500);

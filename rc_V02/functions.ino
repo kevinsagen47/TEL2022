@@ -16,6 +16,27 @@ void all_stop(){
   analogWrite(7,0);
   analogWrite(6,0);
 }
+
+void print_channels(){
+  Serial.print(channel_[1]);
+  Serial.print(" ");
+  Serial.print(channel_[2]);
+  Serial.print(" ");
+  Serial.print(channel_[3]);
+  Serial.print(" ");
+  Serial.print(channel_[4]);
+  Serial.print(" ");
+  Serial.print(channel_[5]);
+  Serial.print(" ");
+  Serial.print(channel_[6]);
+  Serial.print(" ");
+  Serial.print(channel_[7]);
+  Serial.print(" ");
+  Serial.print(channel_[8]);
+  Serial.println(" ");
+
+
+}
 void motor_control(){
 if(channel_[2]>50){
     if(channel_[2]>1549)forward=map(channel_[2],1550,2000,minimum_pwm,255);
