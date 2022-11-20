@@ -73,24 +73,23 @@ void setup() {
 
 void loop() {
   get_ppm();
+  addtime=millis();
   if (channel_[5]<2100 && channel_[5]>1900){
     servo_control();
-    addtime=millis();
     if(channel_[7]>1500 &&channel_[7]<2100){
       if((millis()-time_ch7)>200){
       loading=2;}
       }
     else time_ch7=millis();
-    if(loading>=1)loading_function();
-    else servo_control();
+    if(loading==0)servo_control();
+  //servo6.write(home6);
+  Serial.println(channel_[7]);
+  }
+  if(loading>=1)loading_function();
   servo1.write(pos1);
   servo2.write(pos2);
   servo3.write(pos3);
   servo4.write(pos4);
   servo5.write(180-pos4);
-  //servo6.write(home6);
-  Serial.println(channel_[7]);
-  }
-  
 
 }
