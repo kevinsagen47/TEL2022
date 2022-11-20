@@ -1,3 +1,11 @@
+void update_servo(){
+  servo1.write(pos1);
+  servo2.write(pos2);
+  servo3.write(pos3);
+  servo4.write(pos4);
+  servo5.write(180-pos4);
+  servo6.write(home6);
+}
 void all_stop(){
   analogWrite(13,0);
   analogWrite(12,0);
@@ -55,31 +63,47 @@ if(channel_[2]>50){
   
   
 
-  if(f_r>=0){
+  if(f_r>=minimum_pwm){
     analogWrite(13,f_r);
     analogWrite(12,0);}
-  else {
+  else if(f_r<=-minimum_pwm){
     analogWrite(12,-1*f_r);
     analogWrite(13,0);}
+  else {
+    analogWrite(12,0);
+    analogWrite(13,0);}
+  
     
   if(f_l>=0){
     analogWrite(11,f_l);
     analogWrite(10,0);}
-  else {
+  else if(f_l<=-minimum_pwm){
     analogWrite(10,-1*f_l);
     analogWrite(11,0);}
+  else {
+    analogWrite(11,0);
+    analogWrite(10,0);}
   
+
   if(b_r>=0){
     analogWrite(9,b_r);
     analogWrite(8,0);}
-  else {
+  else if(b_r<=-minimum_pwm){
     analogWrite(8,-1*b_r);
     analogWrite(9,0);}
+  else {
+    analogWrite(9,0);
+    analogWrite(8,0);}
+  
 
   if(b_l>=0){
     analogWrite(7,b_l);
     analogWrite(6,0);}
-  else {
+  else if(b_l<=-minimum_pwm){
     analogWrite(6,-1*b_l);
+    analogWrite(7,0);}
+  
+  else {
+    analogWrite(6,0);
     analogWrite(7,0);}
   }

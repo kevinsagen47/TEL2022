@@ -24,7 +24,7 @@ if(channel_[1]>1550){
     }
     else if(channel_[2]<1450){
       delay2=map(channel_[2],1450,1000,minimum_pwm,max_speed);
-      if((addtime-time2)> delay2){
+      if((addtime-time2)> delay2){ 
         if(pos2<max2)pos2++;
         time2=millis();
       }
