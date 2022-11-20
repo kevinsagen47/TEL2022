@@ -83,6 +83,17 @@ void callback(){//calculate speed FOR PWM CALIBRATION
     Serial.println(speed4);
 }
 
+void turn_off_motor(){
+  analogWrite(13,0);
+  analogWrite(12,0);
+  analogWrite(11,0);
+  analogWrite(10,0);
+  analogWrite(9,0);
+  analogWrite(8,0);
+  analogWrite(7,0);
+  analogWrite(6,0);
+}
+
 //forward with certain speed, input -255-0, 0-255, minus means backward
 void forward_degree(int speed,int degree){
   a=encoder_pos1+degree;//input target
@@ -102,6 +113,7 @@ void forward_degree(int speed,int degree){
        ||encoder_pos2<(b-tolerance) || encoder_pos2>(b+tolerance)
        ||encoder_pos3<(c-tolerance) || encoder_pos3>(c+tolerance)
        ||encoder_pos4<(d-tolerance) || encoder_pos4>(d+tolerance))elapsedd=millis();
+
     if((elapsed-elapsedd)>200)stationary=1;
 
 
@@ -200,12 +212,6 @@ void turn_degree(int speed,int degree){
 void wait(int del){
   timeee=millis();
   timee=millis();
-  
-  a=encoder_pos1;
-  b=encoder_pos2;
-  c=encoder_pos3;
-  d=encoder_pos4;
-  
   while((timee-timeee)<del){
     run();
     timee=millis();
@@ -249,7 +255,7 @@ void run(){
     if (motor_value4>_minimum_pwm4 && motor_value4<=-10)motor_value4=-1*minimum_pwm4;
     if(motor_value4 > 0)m4f(motor_value4);
     else                m4b(-1*motor_value4);
-    //print_pwm();
+    print_pwm();
     
     }
 

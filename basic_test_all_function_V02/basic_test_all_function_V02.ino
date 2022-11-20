@@ -4,9 +4,10 @@
 
 ////////////////////////USER ADJUSTABLESSSSS//////////////////////////////
 int minimum_pwm=70,_minimum_pwm=-70;//EX.機器人要移動100度，但超過5度，調誤差回的速度
-int start_pwm=80,end_pwm=70;//start speed, if too fast can slip
+int start_pwm=70,end_pwm=70;//start speed, if too fast can slip
 int  tolerance=5;//可接受誤差
 int offset1=-4,offset2=-9,offset3=-4,offset4=-14;//pwm forward  (前進四輪速度的補值)
+//int offset1=0,offset2=0,offset3=0,offset4=0;//pwm forward  (前進四輪速度的補值)
 int _offset1=-2,_offset2=5,_offset3=2,_offset4=3;//pwm backwards(後退四輪速度的補值)
 int dist_tol=5;//distance tolerance(紅外線可接受的誤差值)
 int cal_speed=70;
@@ -102,17 +103,16 @@ void setup() {
 
 
 void loop() {
-  
-  while(digitalRead(42))wait(100);
-  
-  
+  while(digitalRead(42))run();
+  forward_degree(100,1000);wait(1000);
+  forward_degree(100,-1000);wait(100);
 
-  
-  
-  take_1_cube(); 
+  //take_1_cube(); 
+  turn_off_motor();
   //cal_left(550);
   //while(1)print_servo();
   Serial.println("done");
+  //while(1)delay(1000);
 
 }
 //stop();

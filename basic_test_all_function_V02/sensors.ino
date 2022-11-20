@@ -29,6 +29,12 @@ void cal_front(int distance){
   Serial.print("  ");
   Serial.println(right_ir);
   }
+  
+  a=encoder_pos1;
+  b=encoder_pos2;
+  c=encoder_pos3;
+  d=encoder_pos4;
+  
 }
 
 
@@ -60,6 +66,12 @@ void cal_right(int distance){
   Serial.println(front_right_ir);
   */
   }
+  
+  a=encoder_pos1;
+  b=encoder_pos2;
+  c=encoder_pos3;
+  d=encoder_pos4;
+  
 }
 
 void cal_left(int distance){
@@ -90,6 +102,12 @@ void cal_left(int distance){
   Serial.println(front_left_ir);
   */
   }
+  
+  a=encoder_pos1;
+  b=encoder_pos2;
+  c=encoder_pos3;
+  d=encoder_pos4;
+  
 }
 
 void encoder4(){

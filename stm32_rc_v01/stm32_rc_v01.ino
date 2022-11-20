@@ -26,8 +26,8 @@ int forward,side,turn;
 int f_r,f_l,b_r,b_l;
 int _f_r,_f_l,_b_r,_b_l;
 int minimum_pwm=40;
-int home1=100,home2=130,home3=1,home4=100,home5=90,home6=90;
-int home1_=100,home2_=130,home3_=180,home4_=100,home6_=90,home5_;
+int home1=100,home2=130,home3=1,home4=100,home5=90,home6=90;//start position (hand folded <30cm)
+int home1_=100,home2_=130,home3_=180,home4_=100,home6_=90,home5_;////folded out positition, prepare to take (degree)
 int pos1=home1,pos2=home2,pos3=home3,pos4=home4,pos5=home5,pos6=home6;
 int min_speed=20,max_speed=8;//servo delay time
 int sdelayt=20,delayt=max_speed, loading=0;
