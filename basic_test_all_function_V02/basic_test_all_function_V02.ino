@@ -12,7 +12,7 @@ int _offset1=-2,_offset2=5,_offset3=2,_offset4=3;//pwm backwards(後退四輪速
 int dist_tol=5;//distance tolerance(紅外線可接受的誤差值)
 int cal_speed=70;
 int follow_dist=180;//high 150 floor 180<--------------------------------------------------------!!!!!!!!!!!!!!!
-int follow_speed=100;
+int follow_speed=100;//走在邊邊，左右邊的輪子矯正的速度(一邊兩顆馬達的速度)
 int follow_tol=10;//high=50, floor=20<-----------------------------------------------------------!!!!!!!!!!!!!!
 bool speed_correction=false;//ture=要測四輪的速度 prints speed, degree/100ms
 //////////////////////////////////////////////////////////////////////////
