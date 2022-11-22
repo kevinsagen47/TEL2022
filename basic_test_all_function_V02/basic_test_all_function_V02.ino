@@ -10,7 +10,7 @@ int offset1=0,offset2=0,offset3=0,offset4=0;//pwm forward  (前進四輪速度�
 //int offset1=0,offset2=0,offset3=0,offset4=0;//pwm forward  (前進四輪速度的補值)
 int _offset1=-2,_offset2=5,_offset3=2,_offset4=3;//pwm backwards(後退四輪速度的補值)
 int dist_tol=5;//distance tolerance(紅外線可接受的誤差值)
-int cal_speed=80;
+int cal_speed=70;
 int follow_dist=180;//high 150 floor 180<--------------------------------------------------------!!!!!!!!!!!!!!!
 int follow_speed=110;//走在邊邊，左右邊的輪子矯正的速度(一邊兩顆馬達的速度)
 int follow_tol=10;//high=50, floor=20<-----------------------------------------------------------!!!!!!!!!!!!!!
@@ -108,11 +108,21 @@ void setup() {
 void loop() {
   print_encoder();
   delay(200);
-  while(digitalRead(42))run();
-  right_slide_A1_leave(140);;wait(500);
+  while(digitalRead(42))run(); 
+  cal_front(400);wait(500);
+  right_slide_A1_leave(400);wait(500);
+  take_1_cube(); 
+  turn_off_motor();
+
+      
+      
+      
+      
+  
+ // right_slide_A1_leave(140);wait(500);
   /*forward_degree(100,600);wait(500);
-  side_degree(100,-200);wait(500);
   follow_left_down_A0_A1(follow_dist);//150
+  side_degree(150,300)
   wait(1000);
   cal_front(400);
   take_1_cube(); 
