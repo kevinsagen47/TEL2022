@@ -116,8 +116,8 @@ void follow_left_down_A0_A1(int distance){
   front_left_ir=analogRead(A3); 
   rear_left_ir =analogRead(A5);
   right_ir=analogRead(A0);
-    left_ir=analogRead(A1);
-  while (right_ir<380 || left_ir<380) {
+  left_ir=analogRead(A1);
+  while (right_ir<320 || left_ir<320) {
     right_ir=analogRead(A0);
     left_ir=analogRead(A1);
     front_left_ir=analogRead(A3);
@@ -126,17 +126,8 @@ void follow_left_down_A0_A1(int distance){
     if(front_left_ir<distance && rear_left_ir<distance && front_left_ir>distance+follow_tol && rear_left_ir>distance+follow_tol)forward_speed(cal_speed);
     else if(front_left_ir<distance && rear_left_ir<distance)side_speed(cal_speed);
     else if(front_left_ir>distance+follow_tol && rear_left_ir>distance+follow_tol)side_speed(-cal_speed);
-    else if(front_left_ir>distance+follow_tol || rear_left_ir<distance-dist_tol){
-      //turn_speed(-cal_speed);
-      m1f(follow_speed);m3f(follow_speed);}
-        //if(prev_dir==2)turn_speed(cal_speed);
-        //else wait(100);prev_dir=2;}
-    else if(rear_left_ir>distance+follow_tol || front_left_ir<distance-dist_tol)
-    {//turn_speed(cal_speed);
-    m2f(follow_speed);m4f(follow_speed);
-    }
-        //if(prev_dir==3)turn_speed(-cal_speed);
-        //else wait(100);prev_dir=3;}
+    else if(front_left_ir>distance+follow_tol || rear_left_ir<distance-dist_tol){m1f(follow_speed);m3f(follow_speed);}
+    else if(rear_left_ir>distance+follow_tol || front_left_ir<distance-dist_tol){m2f(follow_speed);m4f(follow_speed);} 
     delayMicroseconds(delaymic);
     
     Serial.print(left_ir);
@@ -150,6 +141,28 @@ void follow_left_down_A0_A1(int distance){
   c=encoder_pos3;
   d=encoder_pos4;
   
+}
+void right_slide_A1_leave(int distance)
+{
+  right_ir=analogRead(A0);
+  left_ir =analogRead(A1);
+  while (right_ir>distance || right_ir<distance-dist_tol || left_ir>distance || left_ir<distance-dist_tol)
+  {
+    right_ir=analogRead(A0);left_ir =analogRead(A1);
+    
+    if(right_ir>distance || left_ir<distance-dist_tol)turn_speed(cal_speed);
+    else if(left_ir>distance || right_ir<distance-dist_tol)turn_speed(-cal_speed);
+
+  delayMicroseconds(delaymic);
+  Serial.print(left_ir);
+  Serial.print("  ");
+  Serial.println(right_ir);
+
+  }
+  a=encoder_pos1;
+  b=encoder_pos2;
+  c=encoder_pos3;
+  d=encoder_pos4;
 }
 
 void encoder4(){

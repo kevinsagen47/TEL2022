@@ -6,13 +6,13 @@
 int minimum_pwm=80,_minimum_pwm=-80;//EX.機器人要移動100度，但超過5度，調誤差回的速度
 int start_pwm=90,end_pwm=90;//start speed, if too fast can slip
 int  tolerance=4;//可接受誤差
-int offset1=-10,offset2=0,offset3=-10,offset4=0;//pwm forward  (前進四輪速度的補值)
+int offset1=0,offset2=0,offset3=0,offset4=0;//pwm forward  (前進四輪速度的補值)
 //int offset1=0,offset2=0,offset3=0,offset4=0;//pwm forward  (前進四輪速度的補值)
 int _offset1=-2,_offset2=5,_offset3=2,_offset4=3;//pwm backwards(後退四輪速度的補值)
 int dist_tol=5;//distance tolerance(紅外線可接受的誤差值)
-int cal_speed=70;
+int cal_speed=80;
 int follow_dist=180;//high 150 floor 180<--------------------------------------------------------!!!!!!!!!!!!!!!
-int follow_speed=120;//走在邊邊，左右邊的輪子矯正的速度(一邊兩顆馬達的速度)
+int follow_speed=110;//走在邊邊，左右邊的輪子矯正的速度(一邊兩顆馬達的速度)
 int follow_tol=10;//high=50, floor=20<-----------------------------------------------------------!!!!!!!!!!!!!!
 bool speed_correction=false;//ture=要測四輪的速度 prints speed, degree/100ms
 //////////////////////////////////////////////////////////////////////////
@@ -108,27 +108,21 @@ void setup() {
 void loop() {
   print_encoder();
   delay(200);
-  
   while(digitalRead(42))run();
-  forward_degree(100,600);wait(500);
-  //side_degree(100,-250);wait(500);
-  Serial.print(encoder_pos1);
-  Serial.print("  ");
-  Serial.print(encoder_pos2);
-  Serial.print("  ");
-  Serial.print(encoder_pos3);
-  Serial.print("  ");
-  Serial.println(encoder_pos4);
-  //follow_left_down_A0_A1(follow_dist);//150
-  // wait(1000);
-  //cal_front(400);
+  right_slide_A1_leave(140);;wait(500);
+  /*forward_degree(100,600);wait(500);
+  side_degree(100,-200);wait(500);
+  follow_left_down_A0_A1(follow_dist);//150
+  wait(1000);
+  cal_front(400);
   take_1_cube(); 
   turn_off_motor();
   //cal_left(550);
   //while(1)print_servo();
   Serial.println("done");
   //while(1)delay(1000);
-  
+  */
+
 }
 //stop();
   //getppm();

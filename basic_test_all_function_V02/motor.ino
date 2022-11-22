@@ -96,10 +96,10 @@ void turn_off_motor(){
 
 //forward with certain speed, input -255-0, 0-255, minus means backward
 void forward_degree(int speed,int degree){
-  a=encoder_pos1+(degree*0.97);//input target
-  b=encoder_pos2+(degree*1.02);
-  c=encoder_pos3+(degree*1.03);
-  d=encoder_pos4+(degree*0.94);
+  a=encoder_pos1+degree;//input target
+  b=encoder_pos2+degree;
+  c=encoder_pos3+degree;
+  d=encoder_pos4+degree;
   pid_limit(start_pwm);
   current_speed=start_pwm;
   while(encoder_pos1<(a-tolerance) || encoder_pos1>(a+tolerance)//whhile target not yet reached
@@ -137,10 +137,10 @@ void forward_degree(int speed,int degree){
   
 //side with certain speed, input -255-0, 0-255, minus means left, positive right
 void side_degree(int speed,int degree){
-  a=encoder_pos1+(degree*0.97);//input target
-  b=encoder_pos2+(degree*1.02);
-  c=encoder_pos3+(degree*1.03);
-  d=encoder_pos4+(degree*0.94);
+  a=encoder_pos1+degree;//input target
+  b=encoder_pos2-degree;
+  c=encoder_pos3-degree;
+  d=encoder_pos4+degree;
   pid_limit(start_pwm);
   current_speed=start_pwm;
   while(encoder_pos1<(a-tolerance) || encoder_pos1>(a+tolerance)
@@ -173,10 +173,10 @@ void side_degree(int speed,int degree){
 }
 
 void turn_degree(int speed,int degree){
-  a=encoder_pos1+(degree*0.97);//input target
-  b=encoder_pos2+(degree*1.02);
-  c=encoder_pos3+(degree*1.03);
-  d=encoder_pos4+(degree*0.94);
+  a=encoder_pos1-degree;//input target
+  b=encoder_pos2+degree;
+  c=encoder_pos3-degree;
+  d=encoder_pos4+degree;
   pid_limit(start_pwm);
   current_speed=start_pwm;
   while(encoder_pos1<(a-tolerance) || encoder_pos1>(a+tolerance)
