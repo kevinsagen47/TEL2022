@@ -4,7 +4,7 @@
 
 ////////////////////////USER ADJUSTABLESSSSS//////////////////////////////
 int minimum_pwm=80,_minimum_pwm=-80;//EX.機器人要移動100度，但超過5度，調誤差回的速度
-int start_pwm=70,end_pwm=70;//start speed, if too fast can slip
+int start_pwm=90,end_pwm=90;//start speed, if too fast can slip
 int  tolerance=4;//可接受誤差
 int offset1=-10,offset2=0,offset3=-10,offset4=0;//pwm forward  (前進四輪速度的補值)
 //int offset1=0,offset2=0,offset3=0,offset4=0;//pwm forward  (前進四輪速度的補值)
@@ -109,6 +109,13 @@ void loop() {
   while(digitalRead(42))run();
   //forward_degree(100,600);wait(500);
   side_degree(100,-250);wait(500);
+  Serial.print(encoder_pos1);
+  Serial.print("  ");
+  Serial.print(encoder_pos2);
+  Serial.print("  ");
+  Serial.print(encoder_pos3);
+  Serial.print("  ");
+  Serial.println(encoder_pos4);
   //follow_left_down_A0_A1(follow_dist);//150
   // wait(1000);
   //cal_front(400);
