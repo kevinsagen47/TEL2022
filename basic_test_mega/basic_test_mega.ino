@@ -81,6 +81,7 @@ if(motor_value > 0){
   Serial.print(encoder_pos3);
   Serial.print("  ");
   Serial.print(encoder_pos4);
+  /*
   Serial.print("  ppm: ");
   Serial.print(channel_[1]);
   Serial.print("  ");
@@ -95,6 +96,7 @@ if(motor_value > 0){
   Serial.print(channel_[6]);
   Serial.print("  ");
   Serial.print(channel_[7]);
+  */
   Serial.println();
   delay(100);
 }
