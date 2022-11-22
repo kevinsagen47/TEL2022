@@ -255,7 +255,7 @@ void run(){
     if (motor_value4>_minimum_pwm4 && motor_value4<=-10)motor_value4=-1*minimum_pwm4;
     if(motor_value4 > 0)m4f(motor_value4);
     else                m4b(-1*motor_value4);
-    print_pwm();
+    //print_pwm();
     
     }
 
