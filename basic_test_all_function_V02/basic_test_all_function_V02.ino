@@ -3,16 +3,16 @@
 //#include <TimeInterrupt.h>
 
 ////////////////////////USER ADJUSTABLESSSSS//////////////////////////////
-int minimum_pwm=70,_minimum_pwm=-70;//EX.機器人要移動100度，但超過5度，調誤差回的速度
+int minimum_pwm=80,_minimum_pwm=-80;//EX.機器人要移動100度，但超過5度，調誤差回的速度
 int start_pwm=70,end_pwm=70;//start speed, if too fast can slip
-int  tolerance=5;//可接受誤差
-int offset1=-4,offset2=-2,offset3=-4,offset4=-14;//pwm forward  (前進四輪速度的補值)
+int  tolerance=4;//可接受誤差
+int offset1=-10,offset2=0,offset3=-10,offset4=0;//pwm forward  (前進四輪速度的補值)
 //int offset1=0,offset2=0,offset3=0,offset4=0;//pwm forward  (前進四輪速度的補值)
 int _offset1=-2,_offset2=5,_offset3=2,_offset4=3;//pwm backwards(後退四輪速度的補值)
 int dist_tol=5;//distance tolerance(紅外線可接受的誤差值)
 int cal_speed=70;
 int follow_dist=180;//high 150 floor 180<--------------------------------------------------------!!!!!!!!!!!!!!!
-int follow_speed=100;//走在邊邊，左右邊的輪子矯正的速度(一邊兩顆馬達的速度)
+int follow_speed=120;//走在邊邊，左右邊的輪子矯正的速度(一邊兩顆馬達的速度)
 int follow_tol=10;//high=50, floor=20<-----------------------------------------------------------!!!!!!!!!!!!!!
 bool speed_correction=false;//ture=要測四輪的速度 prints speed, degree/100ms
 //////////////////////////////////////////////////////////////////////////
@@ -107,12 +107,11 @@ void setup() {
 
 void loop() {
   while(digitalRead(42))run();
-  forward_degree(100,600);wait(500);
-  side_degree(100,-200);wait(500);
-  //forward_degree(100,-1000);wait(100);
-  follow_left_down_A0_A1(follow_dist);//150
-  wait(1000);
-  cal_front(400);
+  //forward_degree(100,600);wait(500);
+  side_degree(100,-250);wait(500);
+  //follow_left_down_A0_A1(follow_dist);//150
+  // wait(1000);
+  //cal_front(400);
   take_1_cube(); 
   turn_off_motor();
   //cal_left(550);
