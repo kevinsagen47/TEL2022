@@ -67,12 +67,7 @@ if (Serial.available() > 0) {
     }
 }
 */
-   motor_value = pos_pid.compute(encoder_pos);
-if(motor_value > 0){
-  MotorCounterClockwise(motor_value);
-}else{
-  MotorClockwise(abs(motor_value));
-}
+
   Serial.print("Enc: ");
   Serial.print(encoder_pos);
   Serial.print("  ");
