@@ -106,6 +106,9 @@ void setup() {
 
 
 void loop() {
+  print_encoder();
+  delay(200);
+  /*
   while(digitalRead(42))run();
   //forward_degree(100,600);wait(500);
   side_degree(100,-250);wait(500);
@@ -125,7 +128,7 @@ void loop() {
   //while(1)print_servo();
   Serial.println("done");
   //while(1)delay(1000);
-
+  */
 }
 //stop();
   //getppm();
