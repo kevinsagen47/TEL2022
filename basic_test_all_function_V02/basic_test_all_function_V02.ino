@@ -3,13 +3,14 @@
 //#include <TimeInterrupt.h>
 
 ////////////////////////USER ADJUSTABLESSSSS//////////////////////////////
-int minimum_pwm=75,_minimum_pwm=-75;//EX.機器人要移動100度，但超過5度，調誤差回的速度
+int minimum_pwm=100,_minimum_pwm=-100;//EX.機器人要移動100度，但超過5度，調誤差回的速度
 int start_pwm=90,end_pwm=90;//start speed, if too fast can slip
 int  tolerance=5;//可接受誤差
-int offset1=10,offset2=8,offset3=6,offset4=0;//pwm forward  (前進四輪速度的補值)
-int _offset1=17,_offset2=0,_offset3=12,_offset4=10;//pwm backwards(後退四輪速度的補值)
 int dist_tol=5;//distance tolerance(紅外線可接受的誤差值)
+int offset1=10,offset2=9,offset3=7,offset4=0;//pwm forward  (前進四輪速度的補值)
+int _offset1=16,_offset2=0,_offset3=12,_offset4=13;//pwm backwards(後退四輪速度的補值)
 int cal_speed=70;
+
 int follow_dist=180;//high 150 floor 180<--------------------------------------------------------!!!!!!!!!!!!!!!
 int follow_speed=110;//走在邊邊，左右邊的輪子矯正的速度(一邊兩顆馬達的速度)
 int follow_tol=10;//high=50, floor=20<-----------------------------------------------------------!!!!!!!!!!!!!!
@@ -67,7 +68,7 @@ byte channelAmount = 8;
 PPMReader ppm(interruptPin, channelAmount);
 int channel_[10]={0,1,2,3,4,5,6,7,8,9};
 int right_ir, left_ir;
-int delaymic=50;
+int delaymic=0;
 int motor_value1,motor_value2,motor_value3,motor_value4;
 int a,b,c,d,stationary;
 //int minimum_pwm2=50,minimum_pwm3=50,minimum_pwm4=50,_minimum_pwm2=-50,_minimum_pwm3=-50,_minimum_pwm4=-50;
@@ -109,14 +110,26 @@ void loop() {
   print_encoder();
   delay(200);
   while(digitalRead(42))run(); 
-  /*cal_front(400);wait(500);
-  right_slide_A1_leave(400);wait(500);
-  */
-  side_degree(150,-600);wait(1000);
-  side_degree(150,600);Serial.print("Doneeeee");wait(500);
-  take_1_cube(); 
+  
+  forward_degree(120,1100);wait(500);//出發前進第二關20
+  cal_left(360);wait(1000);//靠左矯正-到第一個點
+  forward_degree(120,800);wait(500);//出發前進第二關40
+  side_degree(120,-410);wait(1000);//左移
+  forward_degree(120,800);wait(500);//前進
+  cal_right(310);wait(1000);//靠右矯正-到第二個點
+  forward_degree(120,700);wait(1000);//出發前進第二關60
+  side_degree(120,430);wait(500);//右移
+  forward_degree(120,660);wait(500);//前進到第二關60
+  cal_left(310);wait(5000);//靠右矯正-到第三個點
+ 
+
+
+
+  //side_degree(150,600);Serial.print("Doneeeee");wait(500);
+  //take_1_cube(); 
   //turn_off_motor();
-  //while(1)delay(1000);
+  take_1_cube(); 
+  while(1)delay(1000);
       
       
       
