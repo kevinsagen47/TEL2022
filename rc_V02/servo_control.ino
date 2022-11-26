@@ -1,3 +1,13 @@
+void servo7_go(int speed,int degree){
+   if(pos7>degree){
+    if((addtime-time7)>speed){
+    pos7=pos7-1;
+    time7=millis();}}
+   if(pos7<degree){
+    if((addtime-time7)>speed){
+    pos7=pos7+1;
+    time7=millis();}}
+}
 void servo_control(){
 //addtime=millis();
     if(channel_[1]>1550){
