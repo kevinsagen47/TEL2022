@@ -36,7 +36,7 @@ Servo servo4;
 Servo servo5;
 Servo servo6;
 Servo servo7;
-int home1_=80,home2_=130,home3_=180,home4_=100,home6_=58,home5_;//folded out positition, prepare to take (degree)
+int home1_=80,home2_=130,home3_=180,home4_=100,home6_=58,home5_,home7_=65;//folded out positition, prepare to take (degree)
 int home1=91,home2=53,home3=0,home4=90,home5=90,home6=58,home7=138;//load-off payload 91 53 0 148
 int home1_30=91,home2_30=115,home3_30=59,home4_30=90,home5_30=90,home6_30=58,home7_30=138;//start position (hand folded <30cm)
 int pos1=home1_30,pos2=home2_30,pos3=home3_30,pos4=home4_30,pos5=home5_30,pos6=home6_30,pos7=home7_30;
@@ -94,6 +94,12 @@ int front_left_ir,rear_left_ir;
 bool done_waiting=false;
 
 
+int forward,side,turn;
+int f_r,f_l,b_r,b_l;
+int _f_r,_f_l,_b_r,_b_l;
+int open_door;
+
+
 void setup() {
   setup_robot();
   
@@ -141,7 +147,11 @@ void setup() {
 void loop() {
   print_encoder();
   delay(200);
-  while(digitalRead(42))run(); 
+
+  while(digitalRead(42)){
+    //run();
+    rc_v02();
+  }
 
   //*/////////////////////second part///////////////////////////
   forward_degree(120,1100);wait(500);//出發前進第二關20
