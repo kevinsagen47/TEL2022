@@ -31,7 +31,7 @@ Servo servo3;
 Servo servo4;
 Servo servo5;
 Servo servo6;
-
+Servo servo7;
 int home1_=80,home2_=130,home3_=180,home4_=100,home6_=90,home5_;//folded out positition, prepare to take (degree)
 int home1=80,home2=110,home3=1,home4=90,home5=90,home6=90;//start position (hand folded <30cm)
 int pos1=home1,pos2=home2,pos3=home3,pos4=home4,pos5=home5,pos6=home6;
@@ -97,20 +97,24 @@ void setup() {
   servo4.attach(44);
   servo5.attach(45);
   servo6.attach(46);
+  servo6.attach(46);
+  servo7.attach(47);
 
   servo1.write(pos1);
   servo2.write(pos2);
   servo3.write(pos3);
   servo4.write(pos4);
   servo5.write(180-pos4);
+  servo7.write(180);
 }
 
 
 void loop() {
   print_encoder();
   delay(200);
+  servo7.write(0);
   while(digitalRead(42))run(); 
-  
+  /*/////////////////////second part///////////////////////////
   forward_degree(120,1100);wait(500);//出發前進第二關20
   cal_left(360);wait(1000);//靠左矯正-到第一個點
   forward_degree(120,800);wait(500);//出發前進第二關40
@@ -121,7 +125,7 @@ void loop() {
   side_degree(120,430);wait(500);//右移
   forward_degree(120,660);wait(500);//前進到第二關60
   cal_left(310);wait(5000);//靠右矯正-到第三個點
- 
+ */////////////////////////////////////////////////////////
 
 
 

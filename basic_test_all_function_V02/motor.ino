@@ -143,18 +143,18 @@ void side_degree(int speed,int degree){
   d=encoder_pos4+degree;
   pid_limit(start_pwm);
   current_speed=start_pwm;
-  while(encoder_pos1<(a-tolerance) || encoder_pos1>(a+tolerance)
+  while((encoder_pos1<(a-tolerance) || encoder_pos1>(a+tolerance)
         ||encoder_pos2<(b-tolerance) || encoder_pos2>(b+tolerance) 
         ||encoder_pos3<(c-tolerance) || encoder_pos3>(c+tolerance)
-        ||encoder_pos4<(d-tolerance) || encoder_pos4>(d+tolerance)
-        || stationary==0){
+        ||encoder_pos4<(d-tolerance) || encoder_pos4>(d+tolerance))
+        && stationary==0){
     elapsed=millis();
 
-    if(encoder_pos1<(a-tolerance) || encoder_pos1>(a+tolerance)
-       ||encoder_pos2<(b-tolerance) || encoder_pos2>(b+tolerance)
-       ||encoder_pos3<(c-tolerance) || encoder_pos3>(c+tolerance)
-       ||encoder_pos4<(d-tolerance) || encoder_pos4>(d+tolerance))elapsedd=millis();
-    if((elapsed-elapsedd)>200)stationary=1;
+    if(!((encoder_pos1<(a-tolerance) && encoder_pos1>(a+tolerance))
+       ||(encoder_pos2<(b-tolerance) && encoder_pos2>(b+tolerance))
+       ||(encoder_pos3<(c-tolerance) && encoder_pos3>(c+tolerance))
+       ||(encoder_pos4<(d-tolerance) && encoder_pos4>(d+tolerance)))&&stationary==0)elapsedd=millis();
+    if((elapsed-elapsedd)>1000)stationary=1;
 
     int absol=abs(a-encoder_pos1);
     
