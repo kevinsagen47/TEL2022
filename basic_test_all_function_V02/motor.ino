@@ -102,19 +102,19 @@ void forward_degree(int speed,int degree){
   d=encoder_pos4+degree;
   pid_limit(start_pwm);
   current_speed=start_pwm;
-  while(encoder_pos1<(a-tolerance) || encoder_pos1>(a+tolerance)//whhile target not yet reached
+  stationary=0;
+  while((encoder_pos1<(a-tolerance) || encoder_pos1>(a+tolerance)
         ||encoder_pos2<(b-tolerance) || encoder_pos2>(b+tolerance) 
         ||encoder_pos3<(c-tolerance) || encoder_pos3>(c+tolerance)
-        ||encoder_pos4<(d-tolerance) || encoder_pos4>(d+tolerance)
-        || stationary==0){
+        ||encoder_pos4<(d-tolerance) || encoder_pos4>(d+tolerance))
+        && (stationary!=1)){
     elapsed=millis();
 
-    if(encoder_pos1<(a-tolerance) || encoder_pos1>(a+tolerance)//motor jitter but not working
-       ||encoder_pos2<(b-tolerance) || encoder_pos2>(b+tolerance)
-       ||encoder_pos3<(c-tolerance) || encoder_pos3>(c+tolerance)
-       ||encoder_pos4<(d-tolerance) || encoder_pos4>(d+tolerance))elapsedd=millis();
-
-    if((elapsed-elapsedd)>200)stationary=1;
+    if(!((encoder_pos1<(a-tolerance) && encoder_pos1>(a+tolerance))
+       ||(encoder_pos2<(b-tolerance) && encoder_pos2>(b+tolerance))
+       ||(encoder_pos3<(c-tolerance) && encoder_pos3>(c+tolerance))
+       ||(encoder_pos4<(d-tolerance) && encoder_pos4>(d+tolerance)))&&(stationary==0)){stationary=2;elapsedd=millis();}
+    if((elapsed-elapsedd)>2000)stationary=1;
 
 
     //Serial.print("enc  ");
@@ -143,18 +143,19 @@ void side_degree(int speed,int degree){
   d=encoder_pos4+degree;
   pid_limit(start_pwm);
   current_speed=start_pwm;
+  stationary=0;
   while((encoder_pos1<(a-tolerance) || encoder_pos1>(a+tolerance)
         ||encoder_pos2<(b-tolerance) || encoder_pos2>(b+tolerance) 
         ||encoder_pos3<(c-tolerance) || encoder_pos3>(c+tolerance)
         ||encoder_pos4<(d-tolerance) || encoder_pos4>(d+tolerance))
-        && stationary==0){
+        && (stationary!=1)){
     elapsed=millis();
 
     if(!((encoder_pos1<(a-tolerance) && encoder_pos1>(a+tolerance))
        ||(encoder_pos2<(b-tolerance) && encoder_pos2>(b+tolerance))
        ||(encoder_pos3<(c-tolerance) && encoder_pos3>(c+tolerance))
-       ||(encoder_pos4<(d-tolerance) && encoder_pos4>(d+tolerance)))&&stationary==0)elapsedd=millis();
-    if((elapsed-elapsedd)>1000)stationary=1;
+       ||(encoder_pos4<(d-tolerance) && encoder_pos4>(d+tolerance)))&&(stationary==0)){stationary=2;elapsedd=millis();}
+    if((elapsed-elapsedd)>2000)stationary=1;
 
     int absol=abs(a-encoder_pos1);
     
@@ -170,6 +171,10 @@ void side_degree(int speed,int degree){
   delayMicroseconds(delaymic);
   }
   pid_limit(100);
+  a=encoder_pos1;//input target
+  b=encoder_pos2;
+  c=encoder_pos3;
+  d=encoder_pos4;
 }
 
 void turn_degree(int speed,int degree){
@@ -179,18 +184,19 @@ void turn_degree(int speed,int degree){
   d=encoder_pos4+degree;
   pid_limit(start_pwm);
   current_speed=start_pwm;
-  while(encoder_pos1<(a-tolerance) || encoder_pos1>(a+tolerance)
+  stationary=0;
+  while((encoder_pos1<(a-tolerance) || encoder_pos1>(a+tolerance)
         ||encoder_pos2<(b-tolerance) || encoder_pos2>(b+tolerance) 
         ||encoder_pos3<(c-tolerance) || encoder_pos3>(c+tolerance)
-        ||encoder_pos4<(d-tolerance) || encoder_pos4>(d+tolerance)
-        || stationary==0){
+        ||encoder_pos4<(d-tolerance) || encoder_pos4>(d+tolerance))
+        && (stationary!=1)){
     elapsed=millis();
 
-    if(encoder_pos1<(a-tolerance) || encoder_pos1>(a+tolerance)
-       ||encoder_pos2<(b-tolerance) || encoder_pos2>(b+tolerance)
-       ||encoder_pos3<(c-tolerance) || encoder_pos3>(c+tolerance)
-       ||encoder_pos4<(d-tolerance) || encoder_pos4>(d+tolerance))elapsedd=millis();
-    if((elapsed-elapsedd)>200)stationary=1;
+    if(!((encoder_pos1<(a-tolerance) && encoder_pos1>(a+tolerance))
+       ||(encoder_pos2<(b-tolerance) && encoder_pos2>(b+tolerance))
+       ||(encoder_pos3<(c-tolerance) && encoder_pos3>(c+tolerance))
+       ||(encoder_pos4<(d-tolerance) && encoder_pos4>(d+tolerance)))&&(stationary==0)){stationary=2;elapsedd=millis();}
+    if((elapsed-elapsedd)>2000)stationary=1;
 
 
     int absol=abs(a-encoder_pos1);

@@ -58,13 +58,40 @@ void servo4_go(int speed,int degree){
     servo5.write(180-pos4);}}
 }
 
+void servo6_go(int speed,int degree){
+  addtime=millis();
+   if(pos6>degree){
+    if((addtime-time6)>speed){
+    pos6=pos6-1;
+    time6=millis();
+    servo6.write(pos6);}}
+   if(pos6<degree){
+    if((addtime-time6)>speed){
+    pos6=pos6+1;
+    time6=millis();
+    servo6.write(pos6);}}
+}
+void servo7_go(int speed,int degree){
+  addtime=millis();
+   if(pos7>degree){
+    if((addtime-time7)>speed){
+    pos7=pos7-1;
+    time7=millis();
+    servo7.write(pos3);}}
+   if(pos7<degree){
+    if((addtime-time7)>speed){
+    pos7=pos7+1;
+    time7=millis();
+    servo7.write(pos7);}}
+}
+
 void update_servo(){
   servo1.write(pos1);
   servo2.write(pos2);
   servo3.write(pos3);
   servo4.write(pos4);
-  servo5.write(180-pos4);
-  servo6.write(home6);
+  servo6.write(pos6);
+  servo6.write(pos7);
 }
 
 void print_servo(){

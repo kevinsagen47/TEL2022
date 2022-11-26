@@ -1,12 +1,13 @@
 void take_1_cube() 
 {
-  while(pos3!=60){
-  run();
-  servo3_go(min_speed,60);}
-  //wait(1000);
   while(pos3!=30){
   run();
   servo3_go(min_speed,30);}
+  //wait(1000);
+  while(pos3!=0){
+  run();
+  servo3_go(min_speed,0);}
+  wait(1000);
   //stop();
   /*while(pos1!=60 && pos2!=140){
     servo1_go(min_speed,60);
@@ -26,3 +27,7 @@ void take_1_cube()
 
   Serial.println("done take 1 cube");
 }
+void servo_standby(){
+  while(pos2!=home2){run();servo2_go(max_speed, home2);}
+  while(pos3!=home3){run();servo3_go(max_speed, home3);}
+  }

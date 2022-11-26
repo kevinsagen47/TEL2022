@@ -21,7 +21,11 @@ int tol_time=1000;
 //floor minimum 180//reccomended 200
 //100
 
-
+//pos6  min 58 //close
+//pos6 max 155 //open
+//pos7 65 min//opem
+//pos7 147 max closed
+//pos7 138 oopen a little
 int popping;
 
 
@@ -32,15 +36,17 @@ Servo servo4;
 Servo servo5;
 Servo servo6;
 Servo servo7;
-int home1_=80,home2_=130,home3_=180,home4_=100,home6_=90,home5_;//folded out positition, prepare to take (degree)
-int home1=80,home2=110,home3=1,home4=90,home5=90,home6=90;//start position (hand folded <30cm)
-int pos1=home1,pos2=home2,pos3=home3,pos4=home4,pos5=home5,pos6=home6;
+int home1_=80,home2_=130,home3_=180,home4_=100,home6_=58,home5_;//folded out positition, prepare to take (degree)
+int home1=91,home2=53,home3=0,home4=90,home5=90,home6=58,home7=138;//load-off payload 91 53 0 148
+int home1_30=91,home2_30=115,home3_30=59,home4_30=90,home5_30=90,home6_30=58,home7_30=138;//start position (hand folded <30cm)
+int pos1=home1_30,pos2=home2_30,pos3=home3_30,pos4=home4_30,pos5=home5_30,pos6=home6_30,pos7=home7_30;
+
 int min_speed=20,max_speed=8;//servo delay time
 int sdelayt=20,delayt=max_speed,loading=0;
 int delay1,delay2,delay3,delay4,delay5;
 int max1=180,max2=140,max3=180,max4=180,max5=180;
 int min1=0,min2=0,min3=0,min4=0,min5=0;
-unsigned long time1,time2,time3,time4,time5,addtime;
+unsigned long time1,time2,time3,time4,time5,time6,time7,addtime;
 
 
 
@@ -97,24 +103,48 @@ void setup() {
   servo4.attach(44);
   servo5.attach(45);
   servo6.attach(46);
-  servo6.attach(46);
   servo7.attach(47);
+  /*
+  servo6.write(home6_30);
+  delay(100);
+  servo7.write(home7_30);
+  delay(100);
+  servo3.write(home3_30);
+  delay(500);
+  servo2.write(home2_30);
+  delay(100);
+  servo1.write(home1_30); 
+  delay(100);
+  servo4.write(home4_30);
+  delay(100);
+  servo5.write(180-home4_30);
+  int pos1=home1_30,pos2=home2_30,pos3=home3_30,pos4=home4_30,pos5=home5_30,pos6=home6_30,pos7=home7_30;
+  */
 
-  servo1.write(pos1);
-  servo2.write(pos2);
-  servo3.write(pos3);
-  servo4.write(pos4);
-  servo5.write(180-pos4);
-  servo7.write(180);
+  servo6.write(home6);
+  delay(100);
+  servo7.write(home7);
+  delay(100);
+  servo3.write(home3);
+  delay(500);
+  servo2.write(home2);
+  delay(100);
+  servo1.write(home1); 
+  delay(100);
+  servo4.write(home4);
+  delay(100);
+  servo5.write(180-home4);
+  pos1=home1;pos2=home2;pos3=home3;pos4=home4;pos5=home5;pos6=home6;pos7=home7;
 }
 
 
 void loop() {
   print_encoder();
   delay(200);
-  servo7.write(0);
   while(digitalRead(42))run(); 
-
+  //servo_standby();
+  side_degree(120,600);wait(500);
+  side_degree(120,-600);wait(500);
   /*/////////////////////second part///////////////////////////
   forward_degree(120,1100);wait(500);//出發前進第二關20
   cal_left(360);wait(1000);//靠左矯正-到第一個點
@@ -134,7 +164,7 @@ void loop() {
   //take_1_cube(); 
   //turn_off_motor();
   take_1_cube(); 
-  while(1)delay(1000);
+  //while(1)delay(1000);
       
       
       
