@@ -11,9 +11,9 @@ int offset1=10,offset2=9,offset3=7,offset4=0;//pwm forward  (前進四輪速度�
 int _offset1=16,_offset2=0,_offset3=12,_offset4=13;//pwm backwards(後退四輪速度的補值)
 int cal_speed=70;
 
-int follow_dist=180;//high 150 floor 180<--------------------------------------------------------!!!!!!!!!!!!!!!
+int follow_dist=180;//high 150 floor 180<------------------------------------------------------------------------------------------------------------------------------------!!!!!!!!!!!!!!!
 int follow_speed=110;//走在邊邊，左右邊的輪子矯正的速度(一邊兩顆馬達的速度)
-int follow_tol=10;//high=50, floor=20<-----------------------------------------------------------!!!!!!!!!!!!!!
+int follow_tol=10;//high=50, floor=20<----------------------------------------------------------------------------------------------------------------------------------------!!!!!!!!!!!!!!
 bool speed_correction=false;//ture=要測四輪的速度 prints speed, degree/100ms
 int tol_time=1000;
 //////////////////////////////////////////////////////////////////////////
@@ -99,7 +99,9 @@ int f_r,f_l,b_r,b_l;
 int _f_r,_f_l,_b_r,_b_l;
 int open_door;
 
-
+unsigned long wait_start_button,debounce_timer;
+bool reset_button;
+int press_count;
 void setup() {
   setup_robot();
   
@@ -110,7 +112,7 @@ void setup() {
   servo5.attach(45);
   servo6.attach(46);
   servo7.attach(47);
-  /*
+  /*//*<--------------------------------------------------------------------------------------------------------------------------------------------------------------------------
   servo6.write(home6_30);
   delay(100);
   servo7.write(home7_30);
@@ -126,7 +128,7 @@ void setup() {
   servo5.write(180-home4_30);
   int pos1=home1_30,pos2=home2_30,pos3=home3_30,pos4=home4_30,pos5=home5_30,pos6=home6_30,pos7=home7_30;
   */
-
+  //*<--------------------------------------------------------------------------------------------------------------------------------------------------------------------------
   servo6.write(home6);
   delay(100);
   servo7.write(home7);
@@ -141,18 +143,30 @@ void setup() {
   delay(100);
   servo5.write(180-home4);
   pos1=home1;pos2=home2;pos3=home3;pos4=home4;pos5=home5;pos6=home6;pos7=home7;
+  //*<--------------------------------------------------------------------------------------------------------------------------------------------------------------------------
 }
 
 
 void loop() {
   print_encoder();
-  delay(200);
-
-  while(digitalRead(42)){
-    //run();
-    rc_v02();
+  //delay(200);
+  wait_start_button=millis();
+  press_count=0;
+  while((millis()-wait_start_button)<2000){
+    if(press_count==0){wait_start_button=millis();}
+    if(digitalRead(42)==1){debounce_timer=millis();reset_button=false;}
+    if(((millis()-debounce_timer)>100) && reset_button==false){press_count++;reset_button=true;Serial.println("press detected");}
+    //Serial.println(press_count);
+    //run();//<--------------------------------------------------------------------------------------------------------------------------------------------on D-day!!!!!!!!!!!!!!!!!!
+    rc_v02();//print_servo();//<-------------------------------------------------------------------------------------------------------------------------------------------on D-day!!!!!!!!!!!!!!!!!!
   }
-
+  Serial.print("button count: ");Serial.println(press_count);
+  //while(1)digitalWrite(13, 1);
+  if(press_count==1){forward_degree(100, 200);Serial.println(press_count);}
+  else if(press_count==2){forward_degree(100, -200);Serial.println(press_count);}
+  else if(press_count==3){side_degree(100, 200);Serial.println(press_count);}
+  else if(press_count==4){side_degree(100, -200);Serial.println(press_count);}
+  else if(press_count==5){
   //*/////////////////////second part///////////////////////////
   forward_degree(120,1100);wait(500);//出發前進第二關20
   cal_left(360);wait(1000);//靠左矯正-到第一個點
@@ -164,14 +178,15 @@ void loop() {
   side_degree(150,430);wait(500);//右移
   forward_degree(180,660);wait(500);//前進到第二關60
   cal_left(310);wait(5000);//靠右矯正-到第三個點
+  take_1_cube(); 
 //*/////////////////////////////////////////////////////////
+  }
 
-
-
+  
   //side_degree(150,600);Serial.print("Doneeeee");wait(500);
   //take_1_cube(); 
   //turn_off_motor();
-  take_1_cube(); 
+  
   //while(1)delay(1000);
       
       
