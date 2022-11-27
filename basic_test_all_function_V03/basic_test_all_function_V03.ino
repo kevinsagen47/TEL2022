@@ -101,6 +101,7 @@ int open_door;
 
 unsigned long wait_start_button,debounce_timer;
 bool reset_button;
+bool first_3rd_pos=false;
 int press_count;
 void setup() {
   setup_robot();
@@ -151,7 +152,7 @@ void loop() {
   print_encoder();
   //delay(200);
   wait_start_button=millis();
-  press_count=0;
+  press_count=0;first_3rd_pos=false;
   while((millis()-wait_start_button)<2000){
     if(press_count==0){wait_start_button=millis();}
     if(digitalRead(42)==1){debounce_timer=millis();reset_button=false;}
@@ -160,12 +161,13 @@ void loop() {
     //run();//<--------------------------------------------------------------------------------------------------------------------------------------------on D-day!!!!!!!!!!!!!!!!!!
     rc_v02();//print_servo();//<-------------------------------------------------------------------------------------------------------------------------------------------on D-day!!!!!!!!!!!!!!!!!!
   }
+  reset_encoder();
   Serial.print("button count: ");Serial.println(press_count);
   //while(1)digitalWrite(13, 1);
-  if(press_count==1){forward_degree(100, 200);Serial.println(press_count);}
-  else if(press_count==2){forward_degree(100, -200);Serial.println(press_count);}
-  else if(press_count==3){side_degree(100, 200);Serial.println(press_count);}
-  else if(press_count==4){side_degree(100, -200);Serial.println(press_count);}
+  if(press_count==1){forward_degree(100, 200);wait(500);Serial.println(press_count);}
+  else if(press_count==2){forward_degree(100, -200);wait(500);Serial.println(press_count);}
+  else if(press_count==3){side_degree(100, 200);wait(500);Serial.println(press_count);}
+  else if(press_count==4){side_degree(100, -200);wait(500);Serial.println(press_count);}
   else if(press_count==5){
   //*/////////////////////second part///////////////////////////
   forward_degree(120,1100);wait(500);//出發前進第二關20

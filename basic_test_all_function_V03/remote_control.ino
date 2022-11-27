@@ -7,13 +7,17 @@ void rc_v02(){
   {motor_control();
   if(channel_[7]>1800&&channel_[7]<2100)  open_door=1;
   else open_door=0;
+  first_3rd_pos=false;
   }
   else if (channel_[5]<1600 && channel_[5]>1400){  
     if(channel_[7]>1500)loading=2;
     if(loading==0)servo_control();  
-    open_door=0;all_stop();}    
+    open_door=0;all_stop();
+    first_3rd_pos=false;}    
 
-  else {all_stop();open_door=0;}
+  else {//all_stop();
+        if(first_3rd_pos==false){reset_encoder();first_3rd_pos=true;}
+        open_door=0;run();}
   
   if(loading_function>=1)loading_function();
   if(open_door==1 && pos7!=home7_)servo7_go(20, home7_);

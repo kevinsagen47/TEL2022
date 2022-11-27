@@ -1,7 +1,12 @@
 
 //callibrate position with front IR
 
-
+void reset_encoder(){
+  a=encoder_pos1;
+  b=encoder_pos2;
+  c=encoder_pos3;
+  d=encoder_pos4;
+}
 
 
 void cal_front(int distance){
