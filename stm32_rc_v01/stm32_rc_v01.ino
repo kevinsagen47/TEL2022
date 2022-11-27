@@ -26,9 +26,10 @@ int forward,side,turn;
 int f_r,f_l,b_r,b_l;
 int _f_r,_f_l,_b_r,_b_l;
 int minimum_pwm=40;
-int home1=78,home2=124,home3=30,home4=90,home5,home6=90;//start position (hand folded <30cm)
+int home1_30=78,home2_30=124,home3_30=35,home4_30=90,home5_30,home6_30=90;//start position (hand folded <30cm)
+int home1=115,home2=110,home3=0,home4=115,home5,home6=90;//payload
 int home1_=100,home2_=130,home3_=180,home4_=100,home6_=90,home5_;////folded out positition, prepare to take (degree)
-int pos1=home1,pos2=home2,pos3=home3,pos4=home4,pos5=home5,pos6=home6;
+int pos1=home1_30,pos2=home2_30,pos3=home3_30,pos4=home4_30,pos5=home5_30,pos6=home6;
 int min_speed=20,max_speed=8;//servo delay time
 int sdelayt=20,delayt=max_speed, loading=0;
 int delay1,delay2,delay3,delay4,delay5;
@@ -58,15 +59,15 @@ void setup() {
   
 
   delay(1000);
-  servo1.write(home1);
+  servo1.write(pos1);
   delay(100);
-  servo2.write(home2);
+  servo2.write(pos2);
   delay(100);
-  servo3.write(home3);
+  servo3.write(pos3);
   delay(100);
-  servo4.write(home4);
+  servo4.write(pos4);
   delay(100);
-  servo5.write(180-home4);
+  servo5.write(180-pos4);
   delay(100);
   //servo6.write(home6);
 }
