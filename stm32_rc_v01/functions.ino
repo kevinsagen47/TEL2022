@@ -7,3 +7,17 @@ for (byte channel = 1; channel <= channelAmount; ++channel) {
     }
 
 }
+void print_servo(){
+  Serial.print(pos1);
+  Serial.print("  ");
+  Serial.print(pos2);
+  Serial.print("  ");
+  Serial.print(pos3);
+  Serial.print("  ");
+  Serial.print(pos4);
+  Serial.print("  ");
+  Serial.print(pos5);
+  Serial.print("  ");
+  Serial.print(pos6);
+  Serial.println();
+}

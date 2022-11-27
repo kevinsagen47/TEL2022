@@ -90,8 +90,9 @@ void update_servo(){
   servo2.write(pos2);
   servo3.write(pos3);
   servo4.write(pos4);
+  servo5.write(180-pos4);
   servo6.write(pos6);
-  servo6.write(pos7);
+  servo7.write(pos7);
 }
 
 void print_servo(){
