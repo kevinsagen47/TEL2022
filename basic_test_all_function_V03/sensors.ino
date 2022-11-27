@@ -116,6 +116,32 @@ void cal_left(int distance){
   d=encoder_pos4;
   
 }
+void cal_back(int distance){
+  back_left_ir=analogRead(A6);
+  back_right_ir =analogRead(A7);
+  while (back_right_ir>distance || back_right_ir<distance-dist_tol 
+          || back_left_ir>distance || back_left_ir<distance-dist_tol){
+    
+    back_left_ir=analogRead(A6);
+    back_right_ir =analogRead(A7);
+
+    if(back_right_ir<distance-dist_tol && back_left_ir<distance-dist_tol)forward_speed(-cal_speed);
+    else if(back_right_ir>distance && back_left_ir>distance)forward_speed(cal_speed);
+    else if(back_right_ir>distance || back_left_ir<distance-dist_tol)turn_speed(-cal_speed);
+    else if(back_left_ir>distance || back_right_ir<distance-dist_tol)turn_speed(cal_speed);
+    delayMicroseconds(delaymic);
+  //  Serial.print(left_ir);
+  //Serial.print("  ");
+  //Serial.println(right_ir);
+  }
+  
+  a=encoder_pos1;
+  b=encoder_pos2;
+  c=encoder_pos3;
+  d=encoder_pos4;
+  
+}
+
 
 void follow_left_down_A0_A1(int distance){
   front_left_ir=analogRead(A3); 

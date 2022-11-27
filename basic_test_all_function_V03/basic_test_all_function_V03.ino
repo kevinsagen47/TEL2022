@@ -91,6 +91,7 @@ int _t1,_t2,_t3,_t4;
 int speed_tol=3;
 int front_right_ir,rear_right_ir;
 int front_left_ir,rear_left_ir;
+int back_right_ir,back_left_ir;
 bool done_waiting=false;
 
 
@@ -159,6 +160,7 @@ void loop() {
     if(((millis()-debounce_timer)>100) && reset_button==false){press_count++;reset_button=true;Serial.println("press detected");}
     //Serial.println(press_count);
     //run();//<--------------------------------------------------------------------------------------------------------------------------------------------on D-day!!!!!!!!!!!!!!!!!!
+    //print_sensor();
     rc_v02();//print_servo();//<-------------------------------------------------------------------------------------------------------------------------------------------on D-day!!!!!!!!!!!!!!!!!!
   }
   reset_encoder();
@@ -166,16 +168,21 @@ void loop() {
   //while(1)digitalWrite(13, 1);
   if(press_count==1)
   {forward_degree(130,500);wait(1000);
-   while (analogRead(A3)>190||analogRead(A5)>190)side_speed(-120);wait(500);
-   follow_left_down_A0_A1(190);  
-   cal_front(430);
+   while (analogRead(A3)>190||analogRead(A5)>190)side_speed(-120);wait(500);reset_encoder();
+   follow_left_down_A0_A1(190);wait(500);reset_encoder();
+   cal_front(430);wait(500);
    while (analogRead(A1)>310){side_speed(130);Serial.println(analogRead(A1));reset_encoder();}
-   wait(10000);
-  
+   side_degree(130,250);wait(500);
+   turn_degree(150,-144);wait(1000);
   Serial.println(press_count);}
+
+
+
+
+  
   if(press_count==2){second_post();}//press_count==3;
-  if(press_count==3){side_degree(150,-700);wait(1000);Serial.println(press_count);}
-  if(press_count==4){side_degree(100, -200);wait(500);Serial.println(press_count);}
+  if(press_count==3){cal_back(430);wait(1000);Serial.println(press_count);}
+  if(press_count==4){side_degree(100, -200);reset_encoder();wait(500);Serial.println(press_count);}
   if(press_count==5){
   //*/////////////////////second part///////////////////////////
   second_post();
