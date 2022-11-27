@@ -7,10 +7,9 @@ int minimum_pwm=100,_minimum_pwm=-100;//EX.機器人要移動100度，但超過5
 int start_pwm=90,end_pwm=90;//start speed, if too fast can slip
 int  tolerance=5;//可接受誤差
 int dist_tol=5;//distance tolerance(紅外線可接受的誤差值)
-int offset1=10,offset2=9,offset3=7,offset4=0;//pwm forward  (前進四輪速度的補值)
-int _offset1=16,_offset2=0,_offset3=12,_offset4=13;//pwm backwards(後退四輪速度的補值)
+int offset1=25,offset2=2,offset3=0,offset4=0;//pwm forward  (前進四輪速度的補值)10 14 6 0
+int _offset1=0,_offset2=0,_offset3=25,_offset4=0;//pwm backwards(後退四輪速度的補值)13 0 12 14
 int cal_speed=70;
-
 int follow_dist=180;//high 150 floor 180<------------------------------------------------------------------------------------------------------------------------------------!!!!!!!!!!!!!!!
 int follow_speed=110;//走在邊邊，左右邊的輪子矯正的速度(一邊兩顆馬達的速度)
 int follow_tol=10;//high=50, floor=20<----------------------------------------------------------------------------------------------------------------------------------------!!!!!!!!!!!!!!
@@ -40,7 +39,8 @@ int home1_=80,home2_=130,home3_=180,home4_=100,home6_=58,home5_,home7_=65;//fold
 int home1=91,home2=53,home3=0,home4=90,home5=90,home6=58,home7=138;//load-off payload 91 53 0 148
 int home1_30=91,home2_30=115,home3_30=59,home4_30=90,home5_30=90,home6_30=58,home7_30=138;//start position (hand folded <30cm)
 int pos1=home1_30,pos2=home2_30,pos3=home3_30,pos4=home4_30,pos5=home5_30,pos6=home6_30,pos7=home7_30;
-
+int balance1=91,balance2=81,balance3=47;
+//balance 91 81 47 
 int min_speed=20,max_speed=8;//servo delay time
 int sdelayt=20,delayt=max_speed,loading=0;
 int delay1,delay2,delay3,delay4,delay5;
@@ -134,17 +134,17 @@ void setup() {
   delay(100);
   servo7.write(home7);
   delay(100);
-  servo3.write(home3);
+  servo3.write(balance3);
   delay(500);
-  servo2.write(home2);
+  servo2.write(balance2);
   delay(100);
-  servo1.write(home1); 
+  servo1.write(balance1); 
   delay(100);
   servo4.write(home4);
   delay(100);
   servo5.write(180-home4);
-  pos1=home1;pos2=home2;pos3=home3;pos4=home4;pos5=home5;pos6=home6;pos7=home7;
-  //*<--------------------------------------------------------------------------------------------------------------------------------------------------------------------------
+  pos1=balance1;pos2=balance2;pos3=balance3;pos4=home4;pos5=home5;pos6=home6;pos7=home7;
+  //*///<--------------------------------------------------------------------------------------------------------------------------------------------------------------------------
 }
 
 
@@ -164,26 +164,23 @@ void loop() {
   reset_encoder();
   Serial.print("button count: ");Serial.println(press_count);
   //while(1)digitalWrite(13, 1);
-  if(press_count==1){forward_degree(100, 200);wait(500);Serial.println(press_count);}
-  else if(press_count==2){forward_degree(100, -200);wait(500);Serial.println(press_count);}
-  else if(press_count==3){side_degree(100, 200);wait(500);Serial.println(press_count);}
-  else if(press_count==4){side_degree(100, -200);wait(500);Serial.println(press_count);}
-  else if(press_count==5){
+  if(press_count==1)
+  {forward_degree(130,500);wait(1000);
+   while (analogRead(A3)>190||analogRead(A5)>190)side_speed(-120);wait(500);
+   follow_left_down_A0_A1(190);  
+   cal_front(430);
+   while (analogRead(A1)>310){side_speed(130);Serial.println(analogRead(A1));reset_encoder();}
+   wait(10000);
+  
+  Serial.println(press_count);}
+  if(press_count==2){second_post();}//press_count==3;
+  if(press_count==3){side_degree(150,-700);wait(1000);Serial.println(press_count);}
+  if(press_count==4){side_degree(100, -200);wait(500);Serial.println(press_count);}
+  if(press_count==5){
   //*/////////////////////second part///////////////////////////
-  forward_degree(120,1100);wait(500);//出發前進第二關20
-  cal_left(360);wait(1000);//靠左矯正-到第一個點
-  forward_degree(220,800);wait(500);//出發前進第二關40
-  side_degree(150,-440);wait(1000);//左移
-  forward_degree(220,800);wait(500);//前進
-  cal_right(310);wait(1000);//靠右矯正-到第二個點
-  forward_degree(220,700);wait(1000);//出發前進第二關60
-  side_degree(150,430);wait(500);//右移
-  forward_degree(180,660);wait(500);//前進到第二關60
-  cal_left(310);wait(5000);//靠右矯正-到第三個點
-  take_1_cube(); 
+  second_post();
 //*/////////////////////////////////////////////////////////
   }
-
   
   //side_degree(150,600);Serial.print("Doneeeee");wait(500);
   //take_1_cube(); 

@@ -122,7 +122,7 @@ void follow_left_down_A0_A1(int distance){
   rear_left_ir =analogRead(A5);
   right_ir=analogRead(A0);
   left_ir=analogRead(A1);
-  while (right_ir<320 || left_ir<320) {
+  while (right_ir<430 || left_ir<430) {
     right_ir=analogRead(A0);
     left_ir=analogRead(A1);
     front_left_ir=analogRead(A3);
@@ -151,6 +151,7 @@ void follow_left_down_A0_A1(int distance){
   d=encoder_pos4;
   
 }
+
 void right_slide_A1_leave(int distance)
 {
   right_ir=analogRead(A0);left_ir =analogRead(A1);
