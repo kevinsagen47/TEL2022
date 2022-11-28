@@ -7,10 +7,10 @@ int minimum_pwm=100,_minimum_pwm=-100;//EX.機器人要移動100度，但超過5
 int start_pwm=90,end_pwm=90;//start speed, if too fast can slip
 int  tolerance=5;//可接受誤差
 int dist_tol=5;//distance tolerance(紅外線可接受的誤差值)
-int offset1=25,offset2=2,offset3=0,offset4=0;//pwm forward  (前進四輪速度的補值)10 14 6 0
-int _offset1=0,_offset2=0,_offset3=25,_offset4=0;//pwm backwards(後退四輪速度的補值)13 0 12 14
+int offset1=25,offset2=2,offset3=0,offset4=5;//pwm forward  (前進四輪速度的補值)10 14 6 0
+int _offset1=5,_offset2=0,_offset3=25,_offset4=0;//pwm backwards(後退四輪速度的補值)13 0 12 14
 int cal_speed=70;
-int follow_dist=180;//high 150 floor 180<------------------------------------------------------------------------------------------------------------------------------------!!!!!!!!!!!!!!!
+int follow_dist=190;//high 150 floor 180<------------------------------------------------------------------------------------------------------------------------------------!!!!!!!!!!!!!!!
 int follow_speed=110;//走在邊邊，左右邊的輪子矯正的速度(一邊兩顆馬達的速度)
 int follow_tol=10;//high=50, floor=20<----------------------------------------------------------------------------------------------------------------------------------------!!!!!!!!!!!!!!
 bool speed_correction=false;//ture=要測四輪的速度 prints speed, degree/100ms
@@ -167,21 +167,33 @@ void loop() {
   Serial.print("button count: ");Serial.println(press_count);
   //while(1)digitalWrite(13, 1);
   if(press_count==1)
-  {forward_degree(130,500);wait(1000);
-   while (analogRead(A3)>190||analogRead(A5)>190)side_speed(-120);wait(500);reset_encoder();
-   follow_left_down_A0_A1(190);wait(500);reset_encoder();
-   cal_front(430);wait(500);
-   while (analogRead(A1)>310){side_speed(130);Serial.println(analogRead(A1));reset_encoder();}
-   side_degree(130,250);wait(500);
-   turn_degree(150,-144);wait(1000);
-  Serial.println(press_count);}
+  {forward_degree(130,500);wait(600);
+   while (analogRead(A3)>205||analogRead(A5)>205)side_speed(-115);reset_encoder();
+   follow_left_down_A0_A1(205);wait(500);
+   //cal_front(430);wait(1000);
+   while (analogRead(A1)>310){side_speed(120);reset_encoder();}
+   side_degree(120,170);wait(500);
+   forward_degree(130,520);wait(1000);
+   turn_degree(100,-132);wait(1000);
+   cal_front(430);wait(1000);
+   forward_degree(130,-210);wait(1000);//退一個固定的度數「拍照」
+   turn_degree(100,138);wait(1000);
+   follow_right_down_A2_A4(200);wait(1200);
+   while (analogRead(A1)>320){side_speed(-120);reset_encoder();}
+   side_degree(120,-420);wait(1000);
+   forward_degree(130,1100);wait(1000);
+   while (analogRead(A2)>200||analogRead(A4)>200)side_speed(120);reset_encoder();
+   cal_back(390);wait(1000);
+   
+   
+   Serial.println(press_count);}
 
 
 
 
   
   if(press_count==2){second_post();}//press_count==3;
-  if(press_count==3){cal_back(430);wait(1000);Serial.println(press_count);}
+  if(press_count==3){follow_right_down_A2_A4(200);wait(1000);Serial.println(press_count);}
   if(press_count==4){side_degree(100, -200);reset_encoder();wait(500);Serial.println(press_count);}
   if(press_count==5){
   //*/////////////////////second part///////////////////////////

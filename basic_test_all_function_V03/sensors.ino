@@ -125,14 +125,12 @@ void cal_back(int distance){
     back_left_ir=analogRead(A6);
     back_right_ir =analogRead(A7);
 
-    if(back_right_ir<distance-dist_tol && back_left_ir<distance-dist_tol)forward_speed(-cal_speed);
-    else if(back_right_ir>distance && back_left_ir>distance)forward_speed(cal_speed);
-    else if(back_right_ir>distance || back_left_ir<distance-dist_tol)turn_speed(-cal_speed);
-    else if(back_left_ir>distance || back_right_ir<distance-dist_tol)turn_speed(cal_speed);
+    if(back_right_ir<distance-dist_tol && back_left_ir<distance-dist_tol)forward_speed(-60);//-cal_speed
+    else if(back_right_ir>distance && back_left_ir>distance)forward_speed(60);
+    else if(back_right_ir>distance || back_left_ir<distance-dist_tol)turn_speed(-60);
+    else if(back_left_ir>distance || back_right_ir<distance-dist_tol)turn_speed(60);
     delayMicroseconds(delaymic);
-  //  Serial.print(left_ir);
-  //Serial.print("  ");
-  //Serial.println(right_ir);
+
   }
   
   a=encoder_pos1;
@@ -177,35 +175,28 @@ void follow_left_down_A0_A1(int distance){
   d=encoder_pos4;
   
 }
-/*void follow_right_down_A0_A1(int distance){
-  front_left_ir=analogRead(A3); 
-  rear_left_ir =analogRead(A5);
+void follow_right_down_A2_A4(int distance){
+  front_right_ir=analogRead(A2); 
+  rear_right_ir =analogRead(A4);
   right_ir=analogRead(A0);
   left_ir=analogRead(A1);
-  while (right_ir<430 || left_ir<430) {
+  while (right_ir<420 || left_ir<420) {
     right_ir=analogRead(A0);
     left_ir=analogRead(A1);
-    front_left_ir=analogRead(A3);
-    rear_left_ir =analogRead(A5);
-    if(front_left_ir<distance && rear_left_ir<distance && front_left_ir>distance+follow_tol && rear_left_ir>distance+follow_tol)forward_speed(cal_speed);
-    else if(front_left_ir<distance && rear_left_ir<distance){m1f(follow_speed);m2f(0);m3f(0);m4f(follow_speed);}//diagonal right
-    else if(front_left_ir>distance+follow_tol && rear_left_ir>distance+follow_tol){m1f(0);m2f(follow_speed);m3f(follow_speed);m4f(0);}//diagonal left
-    else if(front_left_ir>distance+follow_tol || rear_left_ir<distance-dist_tol){m1f(follow_speed);m3f(follow_speed);m2f(0);m4f(0);}//turn left
-    else if(rear_left_ir>distance+follow_tol || front_left_ir<distance-dist_tol){m2f(follow_speed);m4f(follow_speed);m1f(0);m3f(0);}//turn right
-    /*if(front_left_ir<distance && rear_left_ir<distance && front_left_ir>distance+follow_tol && rear_left_ir>distance+follow_tol)forward_speed(cal_speed);
-    else if(front_left_ir<distance && rear_left_ir<distance)side_speed(cal_speed);
-    else if(front_left_ir>distance+follow_tol && rear_left_ir>distance+follow_tol)side_speed(-cal_speed);
-    else if(front_left_ir>distance+follow_tol || rear_left_ir<distance-dist_tol){m1f(follow_speed);m3f(follow_speed);}
-    else if(rear_left_ir>distance+follow_tol || front_left_ir<distance-dist_tol){m2f(follow_speed);m4f(follow_speed);} */
+    front_right_ir=analogRead(A2);
+    rear_right_ir =analogRead(A4);
+    if(front_right_ir<distance && rear_right_ir<distance && front_right_ir>distance+follow_tol && rear_right_ir>distance+follow_tol)forward_speed(cal_speed);
+    else if(front_right_ir<distance && rear_right_ir<distance){m1f(0);m2f(follow_speed);m3f(follow_speed);m4f(0);}//diagonal left
+    else if(front_right_ir>distance+follow_tol && rear_right_ir>distance+follow_tol){m1f(follow_speed);m2f(0);m3f(0);m4f(follow_speed);}//diagonal right
+    else if(front_right_ir>distance+follow_tol || rear_right_ir<distance-dist_tol){m2f(follow_speed);m4f(follow_speed);m1f(0);m3f(0);}//turn right
+    else if(rear_right_ir>distance+follow_tol || front_right_ir<distance-dist_tol){m1f(follow_speed);m3f(follow_speed);m2f(0);m4f(0);}//turn left
     delayMicroseconds(delaymic);
     
   Serial.print(left_ir);
   Serial.print("  ");
   Serial.println(left_ir);
-
-  }*/
   
-  
+  }
    turn_off_motor();
   a=encoder_pos1;
   b=encoder_pos2;
@@ -213,6 +204,7 @@ void follow_left_down_A0_A1(int distance){
   d=encoder_pos4;
   
 }
+
 void encoder4(){
   if(digitalRead(17) == HIGH)encoder_pos4++;
   else encoder_pos4--;

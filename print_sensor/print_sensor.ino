@@ -5,8 +5,8 @@ void setup() {
 
 void loop() {
   // put your main code here, to run repeatedly:
-  Serial.print(analogRead(A6));
-  Serial.print(" ");
   Serial.print(analogRead(A7));
+  Serial.print(" ");
+  Serial.print(analogRead(A6));
   Serial.println();
 }
