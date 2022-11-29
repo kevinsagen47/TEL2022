@@ -180,7 +180,7 @@ void follow_right_down_A2_A4(int distance){
   rear_right_ir =analogRead(A4);
   right_ir=analogRead(A0);
   left_ir=analogRead(A1);
-  while (right_ir<420 || left_ir<420) {
+  while (right_ir<470 || left_ir<480) {
     right_ir=analogRead(A0);
     left_ir=analogRead(A1);
     front_right_ir=analogRead(A2);
