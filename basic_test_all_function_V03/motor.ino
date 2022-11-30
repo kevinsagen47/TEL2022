@@ -25,13 +25,14 @@ void setup_robot(){
   pinMode(6,1);
 
   pinMode(43,1);
-  digitalWrite(43,1);
+  digitalWrite(43,0);
   pinMode(42, INPUT_PULLUP);
   attachInterrupt(digitalPinToInterrupt(18), encoder, RISING);
   attachInterrupt(digitalPinToInterrupt(19), encoder2, RISING);
-  attachInterrupt(digitalPinToInterrupt(20), encoder3, RISING);
-  attachInterrupt(digitalPinToInterrupt(21), encoder4, RISING);
-
+  //attachInterrupt(digitalPinToInterrupt(A14), encoder3, RISING);
+  //attachInterrupt(digitalPinToInterrupt(A15), encoder4, RISING);
+  attachPCINT(digitalPinToPCINT(A14), encoder3, RISING);
+  attachPCINT(digitalPinToPCINT(A15), encoder4, RISING);
   pos_pid1.begin();    
   pos_pid1.tune(100, 0, 4000);    
   pos_pid1.limit(-255, 255);
@@ -60,7 +61,9 @@ void setup_robot(){
   Timer1.attachInterrupt(callback);
   */
   delay(100);
+  digitalWrite(43,1);
 }
+/*
 void callback(){//calculate speed FOR PWM CALIBRATION
   speed1=encoder_pos1-prev_encoder_pos1;
   prev_encoder_pos1=encoder_pos1;
@@ -82,7 +85,7 @@ void callback(){//calculate speed FOR PWM CALIBRATION
     Serial.print(" ");
     Serial.println(speed4);
 }
-
+*/
 void turn_off_motor(){
   analogWrite(13,0);
   analogWrite(12,0);

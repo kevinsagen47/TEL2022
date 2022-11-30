@@ -1,4 +1,5 @@
 #include <PIDController.h>
+#include <Servo.h>
 volatile long int encoder_pos = 0;
 volatile long int encoder_pos2 = 0;
 volatile long int encoder_pos3 = 0;
@@ -14,6 +15,14 @@ byte interruptPin = 2;
 byte channelAmount = 8;
 PPMReader ppm(interruptPin, channelAmount);
 int channel_[10]={0,1,2,3,4,5,6,7,8,9};
+
+
+
+
+#include "PinChangeInterrupt.h"
+
+// Choose a valid PinChangeInterrupt pin of your Arduino board
+
 
 void setup() {
 
@@ -35,8 +44,10 @@ void setup() {
   
   attachInterrupt(digitalPinToInterrupt(18), encoder, RISING);
   attachInterrupt(digitalPinToInterrupt(19), encoder2, RISING);
-  attachInterrupt(digitalPinToInterrupt(20), encoder3, RISING);
-  attachInterrupt(digitalPinToInterrupt(21), encoder4, RISING);
+  //attachInterrupt(digitalPinToInterrupt(A14), encoder3, RISING);
+  //attachInterrupt(digitalPinToInterrupt(A15), encoder4, RISING);
+  attachPCINT(digitalPinToPCINT(A14), encoder3, RISING);
+  attachPCINT(digitalPinToPCINT(A15), encoder4, RISING);
   
 
   pos_pid.begin();    

@@ -1,7 +1,10 @@
 #include <PIDController.h>
 #include <Servo.h>
+#include <PinChangeInterrupt.h>
 //#include <TimeInterrupt.h>
+#include <QMC5883LCompass.h>
 
+QMC5883LCompass compass;
 ////////////////////////USER ADJUSTABLESSSSS//////////////////////////////
 int minimum_pwm=100,_minimum_pwm=-100;//EX.機器人要移動100度，但超過5度，調誤差回的速度
 int start_pwm=90,end_pwm=90;//start speed, if too fast can slip 90
@@ -95,7 +98,7 @@ int front_right_ir,rear_right_ir;
 int front_left_ir,rear_left_ir;
 int back_right_ir,back_left_ir;
 bool done_waiting=false;
-
+int azimuth,abs_angle,start_angle;
 
 int forward,side,turn;
 int f_r,f_l,b_r,b_l;
@@ -106,9 +109,10 @@ unsigned long wait_start_button,debounce_timer;
 bool reset_button;
 bool first_3rd_pos=false;
 int press_count;
+int steady_angle;
 void setup() {
   setup_robot();
-  
+  compass.init();
   servo1.attach(3);
   servo2.attach(4);
   servo3.attach(5);
@@ -152,11 +156,14 @@ void setup() {
 
 
 void loop() {
+  
   print_encoder();
   //delay(200);
   wait_start_button=millis();
   press_count=0;first_3rd_pos=false;
   while((millis()-wait_start_button)<2000){
+    //print_encoder();
+
     if(press_count==0){wait_start_button=millis();}
     if(digitalRead(42)==1){debounce_timer=millis();reset_button=false;}
     if(((millis()-debounce_timer)>100) && reset_button==false){press_count++;reset_button=true;Serial.println("press detected");}
@@ -164,7 +171,12 @@ void loop() {
     //run();//<--------------------------------------------------------------------------------------------------------------------------------------------on D-day!!!!!!!!!!!!!!!!!!
     //print_sensor();
     rc_v02();//print_servo();//<-------------------------------------------------------------------------------------------------------------------------------------------on D-day!!!!!!!!!!!!!!!!!!
+    
   }
+    compass.read();
+    azimuth = compass.getAzimuth();
+    start_angle=azimuth;
+  cal_compass(90);
   reset_encoder();
   Serial.print("button count: ");Serial.println(press_count);
   //while(1)digitalWrite(13, 1);
@@ -228,42 +240,30 @@ void loop() {
     side_degree(120,800);wait(5000);
 
     Serial.println(press_count);}
-  if(press_count==4){forward_degree(210,30000);forward_degree(210,30000);wait(500);Serial.println(press_count);}//爬坡
+  if(press_count==4){
+    wait(500);
+    //while(digitalRead(42))run();
+    
+    cal_compass(73);
+    wait(1000);
+    cal_compass(0);
+    //wait(500);
+    //cal_compass(0);
+    /*
+    wait(1000);
+    cal_compass(-92);
+    wait(1000);
+    cal_compass(0);
+    */
+    
+    //while(1)print_compass();
+    Serial.println("DONEEE COMPASSS");//wait(500);
+    }
+    //forward_degree(210,300);wait(200);}//forward_degree(210,30000);forward_degree(210,30000);wait(500);Serial.println(press_count);}//爬坡
   if(press_count==5){
   //*/////////////////////second part///////////////////////////
   second_post();
   //*/////////////////////////////////////////////////////////
   }
-  
-  //side_degree(150,600);Serial.print("Doneeeee");wait(500);
-  //take_1_cube(); 
-  //turn_off_motor();
-  
-  //while(1)delay(1000);
-      
-      
-      
-      
-  
- // right_slide_A1_leave(140);wait(500);
-  /*forward_degree(100,600);wait(500);
-  follow_left_down_A0_A1(follow_dist);//150
-  side_degree(150,300)
-  wait(1000);
-  cal_front(400);
-  take_1_cube(); 
-  turn_off_motor();
-  //cal_left(550);
-  //while(1)print_servo();
-  Serial.println("done");
-  //while(1)delay(1000);
-  */
 
 }
-//stop();
-  //getppm();
-//forward_degree(100,200);wait(1000);forward_degree(75,-200);
-  //side_degree(150,300);wait(1000);side_degree(150,-300);
-  //side_degree(75,400);wait(500);forward_degree(100,400);wait(500);side_degree(75,-400);wait((500));forward_degree(100,-400);
-  //turn_degree(150,-200);wait(1000);turn_degree(150,200);
-    //cal_front(400);//max 550

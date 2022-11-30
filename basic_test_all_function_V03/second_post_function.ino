@@ -11,3 +11,41 @@ forward_degree(120,1100);wait(500);//出發前進第二關20
   cal_left(310);wait(5000);//靠右矯正-到第三個點
   take_1_cube(); 
   }
+void cal_compass(int degree){
+    Serial.println("hi compass");
+    steady_angle=0;
+    //while((degree-abs_angle)>2 || (degree-abs_angle)<2){
+      //for(int i=0;i<3; i++){
+
+        while((degree-abs_angle)>2 || (degree-abs_angle)<2){// || steady_angle<5){
+          compass.read();
+          azimuth=compass.getAzimuth();
+          abs_angle=start_angle-azimuth;
+          if(abs_angle>180)abs_angle=abs_angle-360;
+          else if(abs_angle<-180)abs_angle=abs_angle+360;
+          
+          Serial.println(degree-abs_angle);
+          //if((degree-abs_angle)>2)turn_speed(120);
+          //else if((degree-abs_angle)<2)turn_speed(-120);
+
+          if((degree-abs_angle)>1 && (degree-abs_angle)<1 )steady_angle++;
+          else steady_angle=0;
+        }
+        reset_encoder();
+        wait(1000);
+      //}
+    wait(500);  
+    print_compass();
+    // Serial.println(abs_angle);
+    //}
+    //reset_encoder();
+}
+void print_compass(){
+    compass.read();
+    azimuth=compass.getAzimuth();
+    abs_angle=start_angle-azimuth;
+    if(abs_angle>180)abs_angle=abs_angle-360;
+    if(abs_angle<-180)abs_angle=abs_angle+360;
+    
+    Serial.println(abs_angle);
+}
