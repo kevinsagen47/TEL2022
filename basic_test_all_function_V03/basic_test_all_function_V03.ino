@@ -186,7 +186,7 @@ void loop() {
    side_degree(120,-650);wait(1500);
    forward_degree(120,1200);wait(1000);
    side_degree(120,550);
-   while (analogRead(A2)>210||analogRead(A4)>210)side_speed(110);reset_encoder();
+   while (analogRead(A2)>220||analogRead(A4)>220)side_speed(110);reset_encoder();
    cal_back(350);wait(1000);
    side_degree(105,-210);wait(1000);
    cal_back(380);wait(1000);
@@ -198,7 +198,7 @@ void loop() {
   forward_degree(130,740);wait(500);//前進
   cal_right(310);wait(1000);//靠右矯正-到第二個點
   forward_degree(130,700);wait(1000);//出發前進第二關60
-  side_degree(120,370);wait(1000);//右移
+  side_degree(120,340);wait(1000);//右移
   forward_degree(130,700);wait(500);//前進到第二關60
   cal_right(310);wait(1000);//靠右矯正-到第二個點
 
