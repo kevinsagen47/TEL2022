@@ -11,10 +11,10 @@ int dist_tol=5;//distance tolerance(紅外線可接受的誤差值)
 
 int offset1=0,offset2=0,offset3=0,offset4=0;//pwm forward  (前進四輪速度的補值)5 12 9 30
 int _offset1=0,_offset2=0,_offset3=0,_offset4=0;//pwm backwards(後退四輪速度的補值)9 20 20 13
-int cal_speed=80;
+int cal_speed=86;//75太慢 第二關無法矯正
 int follow_dist=190;//high 150 floor 180<------------------------------------------------------------------------------------------------------------------------------------!!!!!!!!!!!!!!!
 int follow_speed=110;//走在邊邊，左右邊的輪子矯正的速度(一邊兩顆馬達的速度)
-int follow_tol=10;//high=50, floor=20<----------------------------------------------------------------------------------------------------------------------------------------!!!!!!!!!!!!!!
+int follow_tol=5;//high=50, floor=20<----------------------------------------------------------------------------------------------------------------------------------------!!!!!!!!!!!!!!
 bool speed_correction=false;//ture=要測四輪的速度 prints speed, degree/100ms
 int tol_time=1000;
 //////////////////////////////////////////////////////////////////////////
@@ -41,8 +41,8 @@ int home1_=80,home2_=130,home3_=180,home4_=100,home6_=58,home5_,home7_=65;//fold
 int home1=91,home2=53,home3=0,home4=90,home5=90,home6=58,home7=138;//load-off payload 91 53 0 148
 int home1_30=91,home2_30=115,home3_30=59,home4_30=90,home5_30=90,home6_30=58,home7_30=138;//start position (hand folded <30cm)
 int pos1=home1_30,pos2=home2_30,pos3=home3_30,pos4=home4_30,pos5=home5_30,pos6=home6_30,pos7=home7_30;
-int balance1=91,balance2=120,balance3=90;
-//balance 91 81 47 
+int balance1=91,balance2=81,balance3=47;
+//balance 91 81 47   91 120 90
 int min_speed=20,max_speed=8;//servo delay time
 int sdelayt=20,delayt=max_speed,loading=0;
 int delay1,delay2,delay3,delay4,delay5;
@@ -175,31 +175,37 @@ void loop() {
    //cal_front(430);wait(1000);
    //while (analogRead(A1)>310){side_speed(105);reset_encoder();}
    side_degree(120,660);wait(1000);
-   forward_degree(130,550);wait(600);
-   turn_degree(130,-142);wait(800);
-   cal_front(420);wait(1000);
-   forward_degree(130,-215);wait(1000);//退一個固定的度數「拍照」
-   turn_degree(130,150);wait(800);
+   forward_degree(130,560);wait(600);
+   turn_degree(135,-143);wait(800);
+   cal_front(430);wait(1000);
+   forward_degree(120,-215);wait(1500);//退一個固定的度數「拍照」
+   turn_degree(160,170);wait(800);
    follow_right_down_A2_A4(220);wait(1200);
-   cal_front(450);wait(1000);
+   //cal_front(480);wait(1000);
    //while (analogRead(A1)>320){side_speed(-120);reset_encoder();}
-   side_degree(120,-690);wait(1000);
-   forward_degree(130,1200);wait(1000);
-   side_degree(120,500);wait(500);
-   while (analogRead(A2)>220||analogRead(A4)>220)side_speed(120);reset_encoder();
+   side_degree(120,-650);wait(1500);
+   forward_degree(120,1200);wait(1000);
+   side_degree(120,550);
+   while (analogRead(A2)>210||analogRead(A4)>210)side_speed(110);reset_encoder();
+   cal_back(350);wait(1000);
    side_degree(105,-210);wait(1000);
    cal_back(380);wait(1000);
 
   forward_degree(120,1500);wait(500);//出發前進第二關20
   cal_right(310);wait(1000);//靠左矯正-到第一個點
   forward_degree(130,800);wait(1000);//出發前進第二關40
-  side_degree(120,-645);wait(1000);//左移
-  forward_degree(130,700);wait(500);//前進
+  side_degree(120,-635);wait(1000);//左移 645有太多過
+  forward_degree(130,740);wait(500);//前進
   cal_right(310);wait(1000);//靠右矯正-到第二個點
   forward_degree(130,700);wait(1000);//出發前進第二關60
-  side_degree(120,380);wait(1000);//右移
+  side_degree(120,370);wait(1000);//右移
   forward_degree(130,700);wait(500);//前進到第二關60
   cal_right(310);wait(1000);//靠右矯正-到第二個點
+
+  forward_degree(170,1300);wait(500);
+  forward_degree(210,20000);forward_degree(210,20000);forward_degree(210,20000);forward_degree(210,5000);wait(800);
+  side_degree(120,-800);wait(500);
+  
    
   Serial.println(press_count);}
 

@@ -98,8 +98,8 @@ void turn_off_motor(){
 void forward_degree(int speed,int degree){
    
     // forward or backward
-     offset1=17,offset2=0,offset3=17,offset4=0;//pwm forward  (前進四輪速度的補值)5 12 9 30
-    _offset1=10,_offset2=0,_offset3=10,_offset4=0;//pwm backwards(後退四輪速度的補值)9 20 20 13
+     offset1=10,offset2=0,offset3=10,offset4=0;//pwm forward  (前進四輪速度的補值)17 0 17 0
+    _offset1=10,_offset2=0,_offset3=10,_offset4=0;//pwm backwards(後退四輪速度的補值)10 0 10 0
   
   a=encoder_pos1+degree;//input target
   b=encoder_pos2+degree;
@@ -144,12 +144,12 @@ void forward_degree(int speed,int degree){
 void side_degree(int speed,int degree){
   if (degree>0){
     // RIGHTTT
-     offset1=5,offset2=12,offset3=9,offset4=30;//pwm forward  (前進四輪速度的補值)5 12 9 30
-    _offset1=9,_offset2=20,_offset3=20,_offset4=13;//pwm backwards(後退四輪速度的補值)9 20 20 13
+     offset1=7,offset2=12,offset3=9,offset4=30;//pwm forward  (前進四輪速度的補值)5 12 9 30
+    _offset1=9,_offset2=20,_offset3=22,_offset4=13;//pwm backwards(後退四輪速度的補值)9 20 20 13
   }else{
     // LEFTTT
-     offset1=0,offset2=0,offset3=30,offset4=0;//pwm forward  (前進四輪速度的補值)5 12 9 30
-    _offset1=0,_offset2=0,_offset3=0,_offset4=0;//pwm backwards(後退四輪速度的補值)9 20 20 13
+     offset1=0,offset2=30,offset3=30,offset4=0;//pwm forward  (前進四輪速度的補值)0 0 30 0 
+    _offset1=0,_offset2=0,_offset3=0,_offset4=30;//pwm backwards(後退四輪速度的補值)0 0 0 0 
   }
   a=encoder_pos1+degree;//input target
   b=encoder_pos2-degree;

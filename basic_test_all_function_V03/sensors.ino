@@ -125,10 +125,10 @@ void cal_back(int distance){
     back_left_ir=analogRead(A6);
     back_right_ir =analogRead(A7);
 
-    if(back_right_ir<distance-dist_tol && back_left_ir<distance-dist_tol)forward_speed(-60);//-cal_speed
-    else if(back_right_ir>distance && back_left_ir>distance)forward_speed(60);
-    else if(back_right_ir>distance || back_left_ir<distance-dist_tol)turn_speed(-60);
-    else if(back_left_ir>distance || back_right_ir<distance-dist_tol)turn_speed(60);
+    if(back_right_ir<distance-dist_tol && back_left_ir<distance-dist_tol)forward_speed(-68);//-cal_speed
+    else if(back_right_ir>distance && back_left_ir>distance)forward_speed(68);
+    else if(back_right_ir>distance || back_left_ir<distance-dist_tol)turn_speed(-68);
+    else if(back_left_ir>distance || back_right_ir<distance-dist_tol)turn_speed(68);
     delayMicroseconds(delaymic);
 
   }
