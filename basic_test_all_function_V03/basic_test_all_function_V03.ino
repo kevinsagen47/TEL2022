@@ -176,10 +176,7 @@ void loop() {
   reset_encoder();
   Serial.print("button count: ");Serial.println(press_count);
   if(press_count==1){
-    cal_compass2(-73);
-    wait(500);
-    cal_compass2(0);
-    wait(1000);
+    one_press();
     //one_press();
     }  
   if(press_count==2){second_post();}//press_count==3;
