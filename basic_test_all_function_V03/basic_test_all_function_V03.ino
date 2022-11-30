@@ -109,7 +109,7 @@ unsigned long wait_start_button,debounce_timer;
 bool reset_button;
 bool first_3rd_pos=false;
 int press_count;
-int steady_angle;
+int steady_angle,delta_degree;
 void setup() {
   setup_robot();
   compass.init();
@@ -156,14 +156,10 @@ void setup() {
 
 
 void loop() {
-  
   print_encoder();
-  //delay(200);
   wait_start_button=millis();
   press_count=0;first_3rd_pos=false;
   while((millis()-wait_start_button)<2000){
-    //print_encoder();
-
     if(press_count==0){wait_start_button=millis();}
     if(digitalRead(42)==1){debounce_timer=millis();reset_button=false;}
     if(((millis()-debounce_timer)>100) && reset_button==false){press_count++;reset_button=true;Serial.println("press detected");}
@@ -176,94 +172,29 @@ void loop() {
     compass.read();
     azimuth = compass.getAzimuth();
     start_angle=azimuth;
-  cal_compass(90);
+    Serial.println(start_angle);
   reset_encoder();
   Serial.print("button count: ");Serial.println(press_count);
-  //while(1)digitalWrite(13, 1);
-  if(press_count==1)
-  {forward_degree(120,500);wait(500);
-   while (analogRead(A3)>210||analogRead(A5)>210){side_speed(-120);reset_encoder();}
-   follow_left_down_A0_A1(215);wait(500);
-   //cal_front(430);wait(1000);
-   //while (analogRead(A1)>310){side_speed(105);reset_encoder();}
-   side_degree(120,660);wait(1000);
-   forward_degree(130,560);wait(600);
-   turn_degree(135,-143);wait(800);
-   cal_front(430);wait(1000);
-   forward_degree(120,-215);wait(1500);//退一個固定的度數「拍照」
-   turn_degree(160,170);wait(800);
-   follow_right_down_A2_A4(220);wait(1200);
-   //cal_front(480);wait(1000);
-   //while (analogRead(A1)>320){side_speed(-120);reset_encoder();}
-   side_degree(120,-650);wait(1500);
-   forward_degree(120,1200);wait(1000);
-   side_degree(120,550);
-   while (analogRead(A2)>220||analogRead(A4)>220)side_speed(110);reset_encoder();
-   cal_back(350);wait(1000);
-   side_degree(105,-210);wait(1000);
-   cal_back(380);wait(1000);
-
-  forward_degree(120,1500);wait(500);//出發前進第二關20
-  cal_right(310);wait(1000);//靠左矯正-到第一個點
-  forward_degree(130,800);wait(1000);//出發前進第二關40
-  side_degree(120,-635);wait(1000);//左移 645有太多過
-  forward_degree(130,740);wait(500);//前進
-  cal_right(310);wait(1000);//靠右矯正-到第二個點
-  forward_degree(130,700);wait(1000);//出發前進第二關60
-  side_degree(120,340);wait(1000);//右移
-  forward_degree(130,700);wait(500);//前進到第二關60
-  cal_right(310);wait(1000);//靠右矯正-到第二個點
-
-  forward_degree(170,1300);wait(500);
-  forward_degree(210,20000);forward_degree(210,20000);forward_degree(210,20000);forward_degree(210,5000);wait(800);
-  side_degree(120,-800);wait(500);
-  
-   
-  Serial.println(press_count);}
-
-
-
-
-  
+  if(press_count==1){
+    cal_compass2(-73);
+    wait(500);
+    cal_compass2(0);
+    wait(1000);
+    //one_press();
+    }  
   if(press_count==2){second_post();}//press_count==3;
   if(press_count==3){
-    /*forward_degree(150,1100);
-    forward_degree(210,30000);forward_degree(210,30000);forward_degree(210,450);wait(800);
-    while (analogRead(A0)<325)side_speed(-120);reset_encoder();
-    side_degree(120,-550);wait(500);
-    cal_front(370);wait(1000);
-    side_degree(120,600);wait(500);
-    */
     forward_degree(120,400);
     side_degree(180,-850);wait(1000);//下坡有問題!!
     forward_degree(120,300);wait(500);
     side_degree(120,800);wait(5000);
-
     Serial.println(press_count);}
   if(press_count==4){
-    wait(500);
-    //while(digitalRead(42))run();
-    
-    cal_compass(73);
+    cal_compass2(73);
     wait(1000);
-    cal_compass(0);
-    //wait(500);
-    //cal_compass(0);
-    /*
-    wait(1000);
-    cal_compass(-92);
-    wait(1000);
-    cal_compass(0);
-    */
-    
-    //while(1)print_compass();
+    cal_compass2(0);
     Serial.println("DONEEE COMPASSS");//wait(500);
     }
-    //forward_degree(210,300);wait(200);}//forward_degree(210,30000);forward_degree(210,30000);wait(500);Serial.println(press_count);}//爬坡
-  if(press_count==5){
-  //*/////////////////////second part///////////////////////////
-  second_post();
-  //*/////////////////////////////////////////////////////////
-  }
+  if(press_count==5){second_post();  }
 
 }
