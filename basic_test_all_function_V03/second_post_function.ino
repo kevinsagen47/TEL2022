@@ -59,7 +59,8 @@ void cal_compass2(int degree){
 
   Serial.println(abs_angle);
   delta_degree=degree-abs_angle;
-  while(delta_degree>5 || delta_degree<-5){
+  steady_angle=0;
+  while(delta_degree>5 || delta_degree<-5 ){//|| steady_angle<5){
     compass.read();
     int azimuth;
     azimuth=compass.getAzimuth();
@@ -71,7 +72,7 @@ void cal_compass2(int degree){
 
     if(delta_degree>5)turn_speed(120);// Serial.println("belok kanan");
     if(delta_degree<-5)turn_speed(-120);//Serial.println("belok kiri");// turn_speed(-120);
-
+    //if((degree-abs_angle)>10 && (degree-abs_angle)<10 )steady_angle++;
   }
   reset_encoder();
   Serial.println("I AM DONE");
