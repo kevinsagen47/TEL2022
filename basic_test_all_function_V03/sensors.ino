@@ -285,6 +285,36 @@ void follow_right_down_back_A2_A4(int distance){
   reset_encoder();
 }
 
+
+void follow_right_down_back_last_slope_A2_A4(int distance){
+  front_right_ir=analogRead(A2); 
+  rear_right_ir =analogRead(A4);
+  back_left_ir=analogRead(A6);
+  back_right_ir =analogRead(A7);
+  while (back_left_ir>200 && back_right_ir>200) {
+    front_right_ir=analogRead(A2); 
+    rear_right_ir =analogRead(A4);
+    back_left_ir=analogRead(A6);
+    back_right_ir =analogRead(A7);
+    if(front_right_ir<distance && rear_right_ir<distance && front_right_ir>distance+follow_tol && rear_right_ir>distance+follow_tol)forward_speed(-cal_speed);
+    else if(front_right_ir<distance && rear_right_ir<distance){m1f(0);m2b(follow_speed);m3b(follow_speed);m4f(0);}//diagonal right
+    else if(front_right_ir>distance+follow_tol && rear_right_ir>distance+follow_tol){m1b(follow_speed);m2f(0);m3f(0);m4b(follow_speed);}//diagonal left
+    else if(rear_right_ir>distance+follow_tol || front_right_ir<distance-dist_tol){m1b(follow_speed);m3b(follow_speed);m2f(0);m4f(0);}//turn right{m2b(follow_speed);m4b(follow_speed);m1f(0);m3f(0);}//turn left
+    delayMicroseconds(delaymic);
+    
+  //Serial.print(left_ir);
+  //Serial.print("  ");
+  //Serial.println(left_ir);
+  
+  }
+   turn_off_motor();
+  a=encoder_pos1;
+  b=encoder_pos2;
+  c=encoder_pos3;
+  d=encoder_pos4;
+  reset_encoder();
+}
+
 void follow_right_down_A2_A4(int distance){
   front_right_ir=analogRead(A2); 
   rear_right_ir =analogRead(A4);

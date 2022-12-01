@@ -206,18 +206,8 @@ void loop() {
    //pos7 138 oopen a little
     }  
   if(press_count==2){
-    /*
-    cal_right_slope(180);
-    wait(500);
-    cal_back_cliff(180);
-    wait(500);
-    side_degree(100,520);
-    wait(1000);
-    diagonal_left_time(150,1600);
-    */
-    wait(1000);
-    follow_left_down_slope_A2_A4(180);
-    wait(1000);
+    
+    
     /*
     while(analogRead(A0)>150 && analogRead(A1)>150)
 {m2f(150);
