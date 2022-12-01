@@ -107,6 +107,31 @@ void side_time(int speed,int del){
   reset_encoder();
 }
 
+
+void diagonal_left_time(int speed,int del){
+  timeee=millis();
+  timee=millis();
+  while((timee-timeee)<del){
+    m2f(speed);
+    m3f(speed+50);
+    m1f(80);
+    m4f(50);
+    timee=millis();
+  }
+
+  reset_encoder();
+}
+
+void turn_time(int speed,int del){
+  timeee=millis();
+  timee=millis();
+  while((timee-timeee)<del){
+    turn_speed(speed);
+    timee=millis();
+  }
+  reset_encoder();
+}
+
 void forward_time(int speed,int del){
   timeee=millis();
   timee=millis();
@@ -245,7 +270,7 @@ void turn_degree(int speed,int degree){
     int absol=abs(a-encoder_pos1);
     
     if((speed_time-millis())>speed_time_var)     {
-    if(absol<200&& current_speed>40)current_speed--;//decellerate
+    if(absol<20&& current_speed>110)current_speed--;//decellerate
     else if (current_speed<speed)current_speed++;   //accelerate
     speed_time=millis();
     pid_limit(current_speed);}

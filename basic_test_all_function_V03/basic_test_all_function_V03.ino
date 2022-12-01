@@ -14,7 +14,7 @@ int dist_tol=5;//distance tolerance(紅外線可接受的誤差值)
 
 int offset1=0,offset2=0,offset3=0,offset4=0;//pwm forward  (前進四輪速度的補值)5 12 9 30
 int _offset1=0,_offset2=0,_offset3=0,_offset4=0;//pwm backwards(後退四輪速度的補值)9 20 20 13
-int cal_speed=70;//75太慢 第二關無法矯正
+int cal_speed=65;//75太慢 第二關無法矯正
 int cal_back_speed=69;
 int cal_side_speed=87;
 int follow_dist=190;//high 150 floor 190<------------------------------------------------------------------------------------------------------------------------------------!!!!!!!!!!!!!!!
@@ -188,7 +188,13 @@ void loop() {
   reset_encoder();
   Serial.print("button count: ");Serial.println(press_count);
   if(press_count==1){
-    one_press();
+    //one_press();
+    turn_degree(140,-180);wait(800);
+    forward_degree(120,-100);wait(500);
+    side_time(150,4000);wait(1000);
+    side_degree(140,-350);wait(800);
+    forward_degree(150,800);wait(500);
+    side_degree(120,400);wait(5000);
     //side_time(-120,900);//3
     //side_time(-100,500);wait(500);
     //put_3_blocks() ;
@@ -199,8 +205,16 @@ void loop() {
    //pos7 138 oopen a little
     }  
   if(press_count==2){
-    while(pos2!=115 || pos3!=59){servo2_go(15,115);run();servo3_go(15,59);run();}
-    //follow_right_down_back_A2_A4(370);
+
+    side_degree(100,500);
+    wait(1000);
+    while(analogRead(A0)>150 && analogRead(A1)>150)
+{m2f(150);
+    m3f(150+50);
+    m1f(80);
+    m4f(50);}
+    reset_encoder();wait(1000);
+
     }//second_post();}
 
   if(press_count==3){//press_count==3;

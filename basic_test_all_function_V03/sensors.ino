@@ -140,6 +140,29 @@ void cal_back(int distance){
   reset_encoder();
 }
 
+void cal_back_cliff(int distance){
+  back_left_ir=analogRead(A6);
+  back_right_ir =analogRead(A7);
+  while (back_right_ir>distance || back_right_ir<distance-10 
+          || back_left_ir>distance || back_left_ir<distance-10){
+    
+    back_left_ir=analogRead(A6);
+    back_right_ir =analogRead(A7);
+
+    if(back_right_ir<distance-10 && back_left_ir<distance-10)forward_speed(cal_back_speed);//-cal_speed
+    else if(back_right_ir>distance && back_left_ir>distance)forward_speed(-cal_back_speed);
+    else if(back_right_ir>distance || back_left_ir<distance-10)turn_speed(cal_back_speed);
+    else if(back_left_ir>distance || back_right_ir<distance-10)turn_speed(-cal_back_speed);
+    delayMicroseconds(delaymic);
+
+  }
+  
+  a=encoder_pos1;
+  b=encoder_pos2;
+  c=encoder_pos3;
+  d=encoder_pos4;
+  reset_encoder();
+}
 
 void follow_left_down_A0_A1(int distance){
   front_left_ir=analogRead(A3); 
