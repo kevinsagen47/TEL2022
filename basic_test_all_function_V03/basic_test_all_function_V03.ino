@@ -20,6 +20,7 @@ int follow_speed=110;//走在邊邊，左右邊的輪子矯正的速度(一邊�
 int follow_tol=5;//high=50, floor=20<----------------------------------------------------------------------------------------------------------------------------------------!!!!!!!!!!!!!!
 bool speed_correction=false;//ture=要測四輪的速度 prints speed, degree/100ms
 int tol_time=1000;
+bool use_compass=false;
 //////////////////////////////////////////////////////////////////////////
 //normal 230
 //floor minimum 180//reccomended 200
@@ -112,7 +113,7 @@ int press_count;
 int steady_angle,delta_degree;
 void setup() {
   setup_robot();
-  compass.init();
+  if(use_compass)compass.init();
   servo1.attach(3);
   servo2.attach(4);
   servo3.attach(5);
@@ -169,10 +170,11 @@ void loop() {
     rc_v02();//print_servo();//<-------------------------------------------------------------------------------------------------------------------------------------------on D-day!!!!!!!!!!!!!!!!!!
     
   }
+  if(use_compass){
     compass.read();
     azimuth = compass.getAzimuth();
     start_angle=azimuth;
-    Serial.println(start_angle);
+    Serial.println(start_angle);}
   reset_encoder();
   Serial.print("button count: ");Serial.println(press_count);
   if(press_count==1){
