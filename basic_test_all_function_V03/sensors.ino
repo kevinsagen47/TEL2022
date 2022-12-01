@@ -55,23 +55,33 @@ void cal_right(int distance){
     rear_right_ir =analogRead(A4);
 
     if(front_right_ir<distance-dist_tol && rear_right_ir<distance-dist_tol)side_speed(cal_side_speed);
-      //if(prev_dir==0)forward_speed(cal_speed);
-      //else wait(100);prev_dir=0;}
     else if(front_right_ir>distance && rear_right_ir>distance)side_speed(-cal_side_speed);
-      //if(prev_dir==1)forward_speed(-cal_speed);
-      //else wait(100);prev_dir=1;}
     else if(front_right_ir>distance || rear_right_ir<distance-dist_tol)turn_speed(-cal_side_speed);
-        //if(prev_dir==2)turn_speed(cal_speed);
-        //else wait(100);prev_dir=2;}
     else if(rear_right_ir>distance || front_right_ir<distance-dist_tol)turn_speed(cal_side_speed);
-        //if(prev_dir==3)turn_speed(-cal_speed);
-        //else wait(100);prev_dir=3;}
     delayMicroseconds(delaymic);
-    /*
-    Serial.print(rear_right_ir);
-  Serial.print("  ");
-  Serial.println(front_right_ir);
-  */
+  }
+  
+  a=encoder_pos1;
+  b=encoder_pos2;
+  c=encoder_pos3;
+  d=encoder_pos4;
+  reset_encoder();
+}
+
+void cal_right_slope(int distance){
+  front_right_ir=analogRead(A2); 
+  rear_right_ir =analogRead(A4);
+  while (front_right_ir>distance || front_right_ir<distance-dist_tol 
+          || rear_right_ir>distance || rear_right_ir<distance-dist_tol){
+    
+    front_right_ir=analogRead(A2);
+    rear_right_ir =analogRead(A4);
+
+    if(front_right_ir<distance-dist_tol && rear_right_ir<distance-dist_tol)side_speed(-cal_side_speed);
+    else if(front_right_ir>distance && rear_right_ir>distance)side_speed(cal_side_speed);
+    else if(front_right_ir>distance || rear_right_ir<distance-dist_tol)turn_speed(cal_side_speed);
+    else if(rear_right_ir>distance || front_right_ir<distance-dist_tol)turn_speed(-cal_side_speed);
+    delayMicroseconds(delaymic);
   }
   
   a=encoder_pos1;
@@ -91,17 +101,9 @@ void cal_left(int distance){
     rear_left_ir =analogRead(A5);
 
     if(front_left_ir<distance-dist_tol && rear_left_ir<distance-dist_tol)side_speed(-cal_side_speed);
-      //if(prev_dir==0)forward_speed(cal_speed);
-      //else wait(100);prev_dir=0;}
     else if(front_left_ir>distance && rear_left_ir>distance)side_speed(cal_side_speed);
-      //if(prev_dir==1)forward_speed(-cal_speed);
-      //else wait(100);prev_dir=1;}
     else if(front_left_ir>distance || rear_left_ir<distance-dist_tol)turn_speed(cal_side_speed);
-        //if(prev_dir==2)turn_speed(cal_speed);
-        //else wait(100);prev_dir=2;}
     else if(rear_left_ir>distance || front_left_ir<distance-dist_tol)turn_speed(-cal_side_speed);
-        //if(prev_dir==3)turn_speed(-cal_speed);
-        //else wait(100);prev_dir=3;}
     delayMicroseconds(delaymic);
     /*
     Serial.print(rear_left_ir);
@@ -143,16 +145,16 @@ void cal_back(int distance){
 void cal_back_cliff(int distance){
   back_left_ir=analogRead(A6);
   back_right_ir =analogRead(A7);
-  while (back_right_ir>distance || back_right_ir<distance-10 
-          || back_left_ir>distance || back_left_ir<distance-10){
+  while (back_right_ir>distance || back_right_ir<distance-5 
+          || back_left_ir>distance || back_left_ir<distance-5){
     
     back_left_ir=analogRead(A6);
     back_right_ir =analogRead(A7);
 
-    if(back_right_ir<distance-10 && back_left_ir<distance-10)forward_speed(cal_back_speed);//-cal_speed
+    if(back_right_ir<distance-5 && back_left_ir<distance-5)forward_speed(cal_back_speed);//-cal_speed
     else if(back_right_ir>distance && back_left_ir>distance)forward_speed(-cal_back_speed);
-    else if(back_right_ir>distance || back_left_ir<distance-10)turn_speed(cal_back_speed);
-    else if(back_left_ir>distance || back_right_ir<distance-10)turn_speed(-cal_back_speed);
+    else if(back_right_ir>distance || back_left_ir<distance-5)turn_speed(cal_back_speed_cliff);
+    else if(back_left_ir>distance || back_right_ir<distance-5)turn_speed(-cal_back_speed_cliff);
     delayMicroseconds(delaymic);
 
   }

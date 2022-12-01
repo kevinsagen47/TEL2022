@@ -16,6 +16,7 @@ int offset1=0,offset2=0,offset3=0,offset4=0;//pwm forward  (前進四輪速度�
 int _offset1=0,_offset2=0,_offset3=0,_offset4=0;//pwm backwards(後退四輪速度的補值)9 20 20 13
 int cal_speed=65;//75太慢 第二關無法矯正
 int cal_back_speed=69;
+int cal_back_speed_cliff=75;
 int cal_side_speed=87;
 int follow_dist=190;//high 150 floor 190<------------------------------------------------------------------------------------------------------------------------------------!!!!!!!!!!!!!!!
 int follow_speed=110;//走在邊邊，左右邊的輪子矯正的速度(一邊兩顆馬達的速度)
@@ -205,16 +206,21 @@ void loop() {
    //pos7 138 oopen a little
     }  
   if(press_count==2){
-
+    
+    cal_right_slope(180);
+    wait(500);
+    cal_back_cliff(180);
+    wait(500);
     side_degree(100,500);
     wait(1000);
+    /*
     while(analogRead(A0)>150 && analogRead(A1)>150)
 {m2f(150);
     m3f(150+50);
     m1f(80);
     m4f(50);}
     reset_encoder();wait(1000);
-
+  */
     }//second_post();}
 
   if(press_count==3){//press_count==3;
