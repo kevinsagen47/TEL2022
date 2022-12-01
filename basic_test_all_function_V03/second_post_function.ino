@@ -1,4 +1,6 @@
 void second_post(){
+  while(pos2!=81 ){servo2_go(15,81);run();}
+  while(pos3!=47 ){servo3_go(15,47);run();}
    follow_right_down_back_A2_A4(220);wait(500);
    side_degree(60,-110);wait(1000);
    cal_back(380);wait(1000);

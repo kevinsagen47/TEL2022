@@ -1,5 +1,7 @@
 void one_press(){
   
+   while(pos2!=81 ){servo2_go(15,81);run();}
+   while(pos3!=47 ){servo3_go(15,47);run();}
    forward_degree(120,500);wait(500);
    side_degree(120,-300);
    //while (analogRead(A3)>210||analogRead(A5)>210){side_speed(-120);reset_encoder();}

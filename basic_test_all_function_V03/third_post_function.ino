@@ -1,7 +1,9 @@
 void third_post(){
+  while(pos2!=81 ){servo2_go(15,81);run();}
+  while(pos3!=47 ){servo3_go(15,47);run();}
   to_the_left();//撞牆矯正
   cal_right(310);wait(1000);//靠右矯正
-  
+
   forward_degree(170,1100);
   forward_time(210,4300);wait(1000);//衝上斜坡
   //while(pos2!=115 || pos3!=59){servo2_go(15,115);run();servo3_go(15,59);run();}
