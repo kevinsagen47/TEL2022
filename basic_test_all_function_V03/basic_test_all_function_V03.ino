@@ -186,50 +186,43 @@ void loop() {
     azimuth = compass.getAzimuth();
     start_angle=azimuth;
     Serial.println(start_angle);}
-  reset_encoder();
-  Serial.print("button count: ");Serial.println(press_count);
-  if(press_count==1){
-    //one_press();
-    turn_degree(140,-180);wait(800);
-    forward_degree(120,-100);wait(500);
-    side_time(150,4000);wait(1000);
-    side_degree(140,-350);wait(800);
-    forward_degree(150,800);wait(500);
-    side_degree(120,400);wait(5000);
-    //side_time(-120,900);//3
-    //side_time(-100,500);wait(500);
+    reset_encoder();
+    Serial.print("button count: ");Serial.println(press_count);
+  if(press_count==1)
+  {
+    one_press();
     //put_3_blocks() ;
-    //one_press();
-    //one_press();
     //pos7 65 min//opem
-   //pos7 147 max closed
-   //pos7 138 oopen a little
+    //pos7 147 max closed
+    //pos7 138 oopen a little
     }  
-  if(press_count==2){
-    
-    
-    /*
-    while(analogRead(A0)>150 && analogRead(A1)>150)
-{m2f(150);
-    m3f(150+50);
-    m1f(80);
-    m4f(50);}
-    reset_encoder();wait(1000);
-  */
-    }//second_post();}
 
-  if(press_count==3){//press_count==3;
-    forward_degree(120,400);
-    side_degree(180,-850);wait(1000);//下坡有問題!!
-    forward_degree(120,300);wait(500);
-    side_degree(120,800);wait(5000);
-    Serial.println(press_count);}
+  if(press_count==2)
+  {
+    side_degree(120,400);wait(500);//第二關開始 要先右移一點點
+    second_post();
+    third_post();
+    /*while(analogRead(A0)>150 && analogRead(A1)>150)
+    {m2f(150);m3f(150+50);m1f(80);m4f(50);}reset_encoder();wait(1000);*/
+   }
+
+  if(press_count==3)//press_count==3;
+  {
+    side_degree(120,400);wait(500);//!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!尚未測試
+    forward_degree(120,-400);wait(500);
+    third_post();
+
+    Serial.println(press_count);
+    }
+
+
   if(press_count==4){
     cal_compass2(73);
     wait(1000);
     cal_compass2(0);
     Serial.println("DONEEE COMPASSS");//wait(500);
     }
+
   if(press_count==5){second_post();  }
 
 }

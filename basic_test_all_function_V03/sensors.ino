@@ -171,7 +171,7 @@ void follow_left_down_A0_A1(int distance){
   rear_left_ir =analogRead(A5);
   right_ir=analogRead(A0);
   left_ir=analogRead(A1);
-  while (right_ir<430 || left_ir<430) {
+  while (right_ir<430 && left_ir<430) {
     right_ir=analogRead(A0);
     left_ir=analogRead(A1);
     front_left_ir=analogRead(A3);
@@ -260,7 +260,7 @@ void follow_right_down_back_A2_A4(int distance){
   rear_right_ir =analogRead(A4);
   back_left_ir=analogRead(A6);
   back_right_ir =analogRead(A7);
-  while (back_left_ir<370 || back_right_ir<370) {
+  while (back_left_ir<370 && back_right_ir<370) {
     front_right_ir=analogRead(A2); 
     rear_right_ir =analogRead(A4);
     back_left_ir=analogRead(A6);
@@ -320,7 +320,7 @@ void follow_right_down_A2_A4(int distance){
   rear_right_ir =analogRead(A4);
   right_ir=analogRead(A0);
   left_ir=analogRead(A1);
-  while (right_ir<460 || left_ir<460) {
+  while (right_ir<460 && left_ir<460) {
     right_ir=analogRead(A0);
     left_ir=analogRead(A1);
     front_right_ir=analogRead(A2);
