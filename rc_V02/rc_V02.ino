@@ -79,6 +79,7 @@ void setup() {
   pinMode(8,1);
   pinMode(7,1);
   pinMode(6,1);
+  pinMode(A10,1);
   //pinMode(5,1);
   pos_pid.begin();    
   pos_pid.tune(15, 0, 2000);    
@@ -125,5 +126,7 @@ void loop() {
   else if(open_door==0 && pos7!=home7)servo7_go(20, home7);
   update_servo();
   print_servo();
+  if(channel_[6]>1800 && channel_[6]<2100)digitalWrite(A10,1);
+  else digitalWrite(A10,0);
   //delayMicroseconds(100);
   }

@@ -23,7 +23,8 @@ void rc_v02(){
   if(open_door==1 && pos7!=home7_)servo7_go(20, home7_);
   else if(open_door==0 && pos7!=home7)servo7_go(20, home7);
   update_servo();
-  
+  if(channel_[6]>1800 && channel_[6]<2100)digitalWrite(A10,1);
+  else digitalWrite(A10,0);
   //delayMicroseconds(100);
   
 }
