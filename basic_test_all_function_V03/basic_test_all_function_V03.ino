@@ -14,10 +14,12 @@ int dist_tol=5;//distance tolerance(紅外線可接受的誤差值)
 
 int offset1=0,offset2=0,offset3=0,offset4=0;//pwm forward  (前進四輪速度的補值)5 12 9 30
 int _offset1=0,_offset2=0,_offset3=0,_offset4=0;//pwm backwards(後退四輪速度的補值)9 20 20 13
-int cal_speed=82;//75太慢 第二關無法矯正
-int follow_dist=190;//high 150 floor 180<------------------------------------------------------------------------------------------------------------------------------------!!!!!!!!!!!!!!!
+int cal_speed=70;//75太慢 第二關無法矯正
+int cal_back_speed=69;
+int cal_side_speed=87;
+int follow_dist=190;//high 150 floor 190<------------------------------------------------------------------------------------------------------------------------------------!!!!!!!!!!!!!!!
 int follow_speed=110;//走在邊邊，左右邊的輪子矯正的速度(一邊兩顆馬達的速度)
-int follow_tol=5;//high=50, floor=20<----------------------------------------------------------------------------------------------------------------------------------------!!!!!!!!!!!!!!
+int follow_tol=5;//high=50, floor=5<----------------------------------------------------------------------------------------------------------------------------------------!!!!!!!!!!!!!!
 bool speed_correction=false;//ture=要測四輪的速度 prints speed, degree/100ms
 int tol_time=1000;
 bool use_compass=false;
@@ -186,8 +188,9 @@ void loop() {
   reset_encoder();
   Serial.print("button count: ");Serial.println(press_count);
   if(press_count==1){
-  one_press();
-
+    one_press();
+    //side_time(-120,900);//3
+    //side_time(-100,500);wait(500);
     //put_3_blocks() ;
     //one_press();
     //one_press();
@@ -195,7 +198,10 @@ void loop() {
    //pos7 147 max closed
    //pos7 138 oopen a little
     }  
-  if(press_count==2){follow_right_down_back_A2_A4(370);}//second_post();}
+  if(press_count==2){
+    while(pos2!=115 || pos3!=59){servo2_go(15,115);run();servo3_go(15,59);run();}
+    //follow_right_down_back_A2_A4(370);
+    }//second_post();}
 
   if(press_count==3){//press_count==3;
     forward_degree(120,400);

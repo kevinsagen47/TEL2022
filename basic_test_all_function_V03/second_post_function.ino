@@ -11,6 +11,11 @@ forward_degree(120,1100);wait(500);//出發前進第二關20
   cal_left(310);wait(5000);//靠右矯正-到第三個點
   take_1_cube(); 
   }
+
+void to_the_left(){
+    side_time(-140,800);
+    side_time(-100,500);wait(1000);
+}
 void cal_compass(int degree){
     Serial.println("hi compass");
     steady_angle=0;

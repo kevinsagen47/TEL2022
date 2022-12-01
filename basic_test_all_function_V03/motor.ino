@@ -97,6 +97,27 @@ void turn_off_motor(){
   analogWrite(6,0);
 }
 
+void side_time(int speed,int del){
+  timeee=millis();
+  timee=millis();
+  while((timee-timeee)<del){
+    side_speed(speed);
+    timee=millis();
+  }
+  reset_encoder();
+}
+
+void forward_time(int speed,int del){
+  timeee=millis();
+  timee=millis();
+  while((timee-timeee)<del){
+    forward_speed(speed);
+    timee=millis();
+  }
+  reset_encoder();
+}
+
+
 //forward with certain speed, input -255-0, 0-255, minus means backward
 void forward_degree(int speed,int degree){
    
