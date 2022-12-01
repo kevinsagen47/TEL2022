@@ -77,10 +77,10 @@ void cal_right_slope(int distance){
     front_right_ir=analogRead(A2);
     rear_right_ir =analogRead(A4);
 
-    if(front_right_ir<distance-dist_tol && rear_right_ir<distance-dist_tol)side_speed(-cal_side_speed);
-    else if(front_right_ir>distance && rear_right_ir>distance)side_speed(cal_side_speed);
-    else if(front_right_ir>distance || rear_right_ir<distance-dist_tol)turn_speed(cal_side_speed);
-    else if(rear_right_ir>distance || front_right_ir<distance-dist_tol)turn_speed(-cal_side_speed);
+    if(front_right_ir<distance-dist_tol && rear_right_ir<distance-dist_tol)side_speed(-100);
+    else if(front_right_ir>distance && rear_right_ir>distance)side_speed(100);
+    else if(front_right_ir>distance || rear_right_ir<distance-dist_tol)turn_speed(100);
+    else if(rear_right_ir>distance || front_right_ir<distance-dist_tol)turn_speed(-100);
     delayMicroseconds(delaymic);
   }
   
@@ -197,6 +197,33 @@ void follow_left_down_A0_A1(int distance){
  reset_encoder();
   
 }
+
+
+void follow_left_down_slope_A2_A4(int distance){
+  right_ir=analogRead(A0);
+  left_ir=analogRead(A1);
+  while (analogRead(A2)<350 &&analogRead(A4)<350) {
+    right_ir=analogRead(A0);
+    left_ir=analogRead(A1);
+    if(right_ir<distance && left_ir<distance && right_ir>distance+20 && left_ir>distance+20)side_speed(cal_speed);
+    else if(right_ir<distance && left_ir<distance){m1b(50);m2b(follow_speed);m3b(follow_speed);m4b(50);}//diagonal l
+    else if(right_ir>distance+20 && left_ir>distance+20){m1f(follow_speed);m2f(50);m3f(50);m4f(follow_speed);}//diagonal r
+    else if( left_ir<distance){m2b(follow_speed);m4b(follow_speed);m1f(50);m3f(50);}//turn left
+    else if(right_ir<distance){m1b(follow_speed);m3b(follow_speed);m2f(50);m4f(50);}//turn right
+    else {Serial.println("F");}
+    delayMicroseconds(delaymic);
+    
+  Serial.print(right_ir);
+  Serial.print("  ");
+  Serial.println(left_ir);
+  
+  }
+   turn_off_motor();
+ reset_encoder();
+  
+}
+
+
 
 void follow_left_time(int distance, int millisec){
   front_left_ir=analogRead(A3); 
