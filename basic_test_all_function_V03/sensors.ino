@@ -163,9 +163,9 @@ void follow_left_down_A0_A1(int distance){
     else if(rear_left_ir>distance+follow_tol || front_left_ir<distance-dist_tol){m2f(follow_speed);m4f(follow_speed);} */
     delayMicroseconds(delaymic);
     
-  Serial.print(left_ir);
-  Serial.print("  ");
-  Serial.println(left_ir);
+  //Serial.print(left_ir);
+  //Serial.print("  ");
+  //Serial.println(left_ir);
   
   }
    turn_off_motor();
@@ -197,9 +197,9 @@ void follow_left_time(int distance, int millisec){
     else if(rear_left_ir>distance+follow_tol || front_left_ir<distance-dist_tol){m2f(follow_speed);m4f(follow_speed);} */
     delayMicroseconds(delaymic);
     
-  Serial.print(left_ir);
-  Serial.print("  ");
-  Serial.println(left_ir);
+  //Serial.print(left_ir);
+  //Serial.print("  ");
+  //Serial.println(left_ir);
   
   }
    turn_off_motor();
@@ -227,9 +227,9 @@ void follow_right_down_back_A2_A4(int distance){
     else if(rear_right_ir>distance+follow_tol || front_right_ir<distance-dist_tol){m2b(follow_speed);m4b(follow_speed);m1f(0);m3f(0);}//turn left{m2b(follow_speed);m4b(follow_speed);m1f(0);m3f(0);}
     delayMicroseconds(delaymic);
     
-  Serial.print(left_ir);
-  Serial.print("  ");
-  Serial.println(left_ir);
+  //Serial.print(left_ir);
+  //Serial.print("  ");
+  //Serial.println(left_ir);
   
   }
    turn_off_motor();
@@ -257,9 +257,9 @@ void follow_right_down_A2_A4(int distance){
     else if(rear_right_ir>distance+follow_tol || front_right_ir<distance-dist_tol){m1f(follow_speed);m3f(follow_speed);m2f(0);m4f(0);}//turn left
     delayMicroseconds(delaymic);
     
-  Serial.print(left_ir);
-  Serial.print("  ");
-  Serial.println(left_ir);
+  //Serial.print(left_ir);
+  //Serial.print("  ");
+  //Serial.println(left_ir);
   
   }
    turn_off_motor();
