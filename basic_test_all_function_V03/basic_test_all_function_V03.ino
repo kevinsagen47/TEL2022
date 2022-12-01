@@ -181,8 +181,9 @@ void loop() {
     one_press();
     //one_press();
     }  
-  if(press_count==2){second_post();}//press_count==3;
-  if(press_count==3){
+  if(press_count==2){follow_right_down_back_A2_A4(370);}//second_post();}
+
+  if(press_count==3){//press_count==3;
     forward_degree(120,400);
     side_degree(180,-850);wait(1000);//下坡有問題!!
     forward_degree(120,300);wait(500);

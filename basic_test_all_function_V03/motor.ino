@@ -141,6 +141,7 @@ void forward_degree(int speed,int degree){
   delayMicroseconds(delaymic);
   }
   pid_limit(100);
+  reset_encoder();
 }
   
 //side with certain speed, input -255-0, 0-255, minus means left, positive right
@@ -151,8 +152,8 @@ void side_degree(int speed,int degree){
     _offset1=9,_offset2=20,_offset3=22,_offset4=13;//pwm backwards(後退四輪速度的補值)9 20 20 13
   }else{
     // LEFTTT
-     offset1=0,offset2=30,offset3=30,offset4=0;//pwm forward  (前進四輪速度的補值)0 0 30 0 
-    _offset1=0,_offset2=0,_offset3=0,_offset4=30;//pwm backwards(後退四輪速度的補值)0 0 0 0 
+     offset1=0,offset2=40,offset3=40,offset4=0;//pwm forward  (前進四輪速度的補值)0 0 30 0 
+    _offset1=0,_offset2=0,_offset3=0,_offset4=40;//pwm backwards(後退四輪速度的補值)0 0 0 0 
   }
   a=encoder_pos1+degree;//input target
   b=encoder_pos2-degree;
@@ -192,6 +193,7 @@ void side_degree(int speed,int degree){
   b=encoder_pos2;
   c=encoder_pos3;
   d=encoder_pos4;
+  reset_encoder();
 }
 
 void turn_degree(int speed,int degree){
@@ -230,6 +232,7 @@ void turn_degree(int speed,int degree){
   delayMicroseconds(delaymic);
   }
   pid_limit(100);
+  reset_encoder();
 }
 
 void wait(int del){
