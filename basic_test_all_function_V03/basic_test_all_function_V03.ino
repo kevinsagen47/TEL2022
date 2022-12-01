@@ -14,7 +14,7 @@ int dist_tol=5;//distance tolerance(紅外線可接受的誤差值)
 
 int offset1=0,offset2=0,offset3=0,offset4=0;//pwm forward  (前進四輪速度的補值)5 12 9 30
 int _offset1=0,_offset2=0,_offset3=0,_offset4=0;//pwm backwards(後退四輪速度的補值)9 20 20 13
-int cal_speed=86;//75太慢 第二關無法矯正
+int cal_speed=82;//75太慢 第二關無法矯正
 int follow_dist=190;//high 150 floor 180<------------------------------------------------------------------------------------------------------------------------------------!!!!!!!!!!!!!!!
 int follow_speed=110;//走在邊邊，左右邊的輪子矯正的速度(一邊兩顆馬達的速度)
 int follow_tol=5;//high=50, floor=20<----------------------------------------------------------------------------------------------------------------------------------------!!!!!!!!!!!!!!
@@ -45,7 +45,7 @@ int home1_=80,home2_=130,home3_=180,home4_=100,home6_=58,home5_,home7_=65;//fold
 int home1=91,home2=43,home3=0,home4=90,home5=90,home6=58,home7=138;//load-off payload 91 53 0 148
 int home1_30=91,home2_30=115,home3_30=59,home4_30=90,home5_30=90,home6_30=58,home7_30=138;//start position (hand folded <30cm)
 int pos1=home1_30,pos2=home2_30,pos3=home3_30,pos4=home4_30,pos5=home5_30,pos6=home6_30,pos7=home7_30;
-int balance1=91,balance2=81,baance3=47;
+int balance1=91,balance2=81,balance3=47;
 //balance 91 81 47   91 120 90
 int min_speed=20,max_speed=8;//servo delay time
 int sdelayt=20,delayt=max_speed,loading=0;
@@ -175,7 +175,7 @@ void loop() {
     //Serial.println(press_count);
     //run();//<--------------------------------------------------------------------------------------------------------------------------------------------on D-day!!!!!!!!!!!!!!!!!!
     //print_sensor();
-    rc_v02();print_servo();//<-------------------------------------------------------------------------------------------------------------------------------------------on D-day!!!!!!!!!!!!!!!!!!
+    rc_v02();//print_servo();//<-------------------------------------------------------------------------------------------------------------------------------------------on D-day!!!!!!!!!!!!!!!!!!
     
   }
   if(use_compass){
@@ -186,18 +186,9 @@ void loop() {
   reset_encoder();
   Serial.print("button count: ");Serial.println(press_count);
   if(press_count==1){
-    while(pos3!=60){servo3_go(20,60);run();}
-    while(pos6!=155){servo6_go(20,155);run();}
-    wait(1000);
-    while(pos7!=40){servo7_go(20,40);run();}
-    //while(pos7!=55){servo7_go(20,55);run();}
-   // wait(1000);
-    //while(pos7!=10){servo7_go(8,10);run();}
-    wait(1000);
-    while(pos6!=58){servo6_go(20,58);run();}
-    //wait(500);
-    while(pos7!=138){servo7_go(5,138);run();}
-    
+  one_press();
+
+    //put_3_blocks() ;
     //one_press();
     //one_press();
     //pos7 65 min//opem

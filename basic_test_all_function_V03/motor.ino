@@ -101,7 +101,7 @@ void turn_off_motor(){
 void forward_degree(int speed,int degree){
    
     // forward or backward
-     offset1=10,offset2=0,offset3=10,offset4=0;//pwm forward  (前進四輪速度的補值)17 0 17 0
+     offset1=20,offset2=0,offset3=20,offset4=0;//pwm forward  (前進四輪速度的補值)17 0 17 0
     _offset1=10,_offset2=0,_offset3=10,_offset4=0;//pwm backwards(後退四輪速度的補值)10 0 10 0
   
   

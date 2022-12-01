@@ -8,6 +8,8 @@ void take_1_cube()
   run();
   servo3_go(min_speed,0);}
   wait(1000);
+    Serial.println("done take 1 cube");
+}
 void put_3_blocks() 
 {
     while(pos3!=60){servo3_go(20,60);run();}
@@ -22,6 +24,12 @@ void put_3_blocks()
     //wait(500);
     while(pos7!=138){servo7_go(5,138);run();}
 }
+
+void servo_standby(){
+  while(pos2!=home2){run();servo2_go(max_speed, home2);}
+  while(pos3!=home3){run();servo3_go(max_speed, home3);}
+  }
+
   //stop();
   /*while(pos1!=60 && pos2!=140){
     servo1_go(min_speed,60);
@@ -39,9 +47,3 @@ void put_3_blocks()
   while(pos3!=home3){servo3_go(min_speed,home3);
   stop();}*/ 
 
-  Serial.println("done take 1 cube");
-}
-void servo_standby(){
-  while(pos2!=home2){run();servo2_go(max_speed, home2);}
-  while(pos3!=home3){run();servo3_go(max_speed, home3);}
-  }
