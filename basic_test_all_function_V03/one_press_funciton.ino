@@ -21,7 +21,8 @@ void one_press(){
    side_degree(60,-100);wait(1000);
    cal_back(370);wait(1000);
 
-  forward_degree(120,2500);wait(500);//出發前進第二關20
+  forward_degree(120,1200);wait(500);//出發前進第二關20
+  
   cal_right(310);wait(1000);//靠右矯正-到第一個點
   while (analogRead(A2)>220)forward_speed(105);reset_encoder();
   forward_degree(120,600);wait(1000);//出發前進第二關40

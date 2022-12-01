@@ -169,10 +169,7 @@ void follow_left_down_A0_A1(int distance){
   
   }
    turn_off_motor();
-  a=encoder_pos1;
-  b=encoder_pos2;
-  c=encoder_pos3;
-  d=encoder_pos4;
+ reset_encoder();
   
 }
 
@@ -203,10 +200,6 @@ void follow_left_time(int distance, int millisec){
   
   }
    turn_off_motor();
-  a=encoder_pos1;
-  b=encoder_pos2;
-  c=encoder_pos3;
-  d=encoder_pos4;
   reset_encoder();
 }
 

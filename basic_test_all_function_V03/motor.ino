@@ -104,10 +104,12 @@ void forward_degree(int speed,int degree){
      offset1=10,offset2=0,offset3=10,offset4=0;//pwm forward  (前進四輪速度的補值)17 0 17 0
     _offset1=10,_offset2=0,_offset3=10,_offset4=0;//pwm backwards(後退四輪速度的補值)10 0 10 0
   
+  
   a=encoder_pos1+degree;//input target
   b=encoder_pos2+degree;
   c=encoder_pos3+degree;
   d=encoder_pos4+degree;
+  
   pid_limit(start_pwm);
   current_speed=start_pwm;
   stationary=0;
@@ -118,12 +120,12 @@ void forward_degree(int speed,int degree){
         && (stationary!=1)){
     elapsed=millis();
 
-    if(!((encoder_pos1<(a-tolerance) && encoder_pos1>(a+tolerance))
-       ||(encoder_pos2<(b-tolerance) && encoder_pos2>(b+tolerance))
-       ||(encoder_pos3<(c-tolerance) && encoder_pos3>(c+tolerance))
-       ||(encoder_pos4<(d-tolerance) && encoder_pos4>(d+tolerance)))&&(stationary==0)){stationary=2;elapsedd=millis();}
-    if((elapsed-elapsedd)>2000)stationary=1;
-
+    if(((encoder_pos1>(a-tolerance) && encoder_pos1<(a+tolerance))
+       ||(encoder_pos2>(b-tolerance) && encoder_pos2<(b+tolerance))
+       ||(encoder_pos3>(c-tolerance) && encoder_pos3<(c+tolerance))
+       ||(encoder_pos4>(d-tolerance) && encoder_pos4<(d+tolerance)))&&(stationary==0)){stationary=2;elapsedd=millis();}
+    if((elapsed-elapsedd)>2000 && stationary==2)stationary=1;
+    
 
     //Serial.print("enc  ");
     //Serial.println(current_speed);
@@ -140,6 +142,7 @@ void forward_degree(int speed,int degree){
   //Serial.println("running");
   delayMicroseconds(delaymic);
   }
+  
   pid_limit(100);
   reset_encoder();
 }
@@ -169,11 +172,11 @@ void side_degree(int speed,int degree){
         && (stationary!=1)){
     elapsed=millis();
 
-    if(!((encoder_pos1<(a-tolerance) && encoder_pos1>(a+tolerance))
-       ||(encoder_pos2<(b-tolerance) && encoder_pos2>(b+tolerance))
-       ||(encoder_pos3<(c-tolerance) && encoder_pos3>(c+tolerance))
-       ||(encoder_pos4<(d-tolerance) && encoder_pos4>(d+tolerance)))&&(stationary==0)){stationary=2;elapsedd=millis();}
-    if((elapsed-elapsedd)>2000)stationary=1;
+    if(((encoder_pos1>(a-tolerance) && encoder_pos1<(a+tolerance))
+       ||(encoder_pos2>(b-tolerance) && encoder_pos2<(b+tolerance))
+       ||(encoder_pos3>(c-tolerance) && encoder_pos3<(c+tolerance))
+       ||(encoder_pos4>(d-tolerance) && encoder_pos4<(d+tolerance)))&&(stationary==0)){stationary=2;elapsedd=millis();}
+    if((elapsed-elapsedd)>2000 && stationary==2)stationary=1;
 
     int absol=abs(a-encoder_pos1);
     
@@ -211,11 +214,11 @@ void turn_degree(int speed,int degree){
         && (stationary!=1)){
     elapsed=millis();
 
-    if(!((encoder_pos1<(a-tolerance) && encoder_pos1>(a+tolerance))
-       ||(encoder_pos2<(b-tolerance) && encoder_pos2>(b+tolerance))
-       ||(encoder_pos3<(c-tolerance) && encoder_pos3>(c+tolerance))
-       ||(encoder_pos4<(d-tolerance) && encoder_pos4>(d+tolerance)))&&(stationary==0)){stationary=2;elapsedd=millis();}
-    if((elapsed-elapsedd)>2000)stationary=1;
+    if(((encoder_pos1>(a-tolerance) && encoder_pos1<(a+tolerance))
+       ||(encoder_pos2>(b-tolerance) && encoder_pos2<(b+tolerance))
+       ||(encoder_pos3>(c-tolerance) && encoder_pos3<(c+tolerance))
+       ||(encoder_pos4>(d-tolerance) && encoder_pos4<(d+tolerance)))&&(stationary==0)){stationary=2;elapsedd=millis();}
+    if((elapsed-elapsedd)>2000 && stationary==2)stationary=1;
 
 
     int absol=abs(a-encoder_pos1);
