@@ -77,7 +77,7 @@ void servo7_go(int speed,int degree){
     if((addtime-time7)>speed){
     pos7=pos7-1;
     time7=millis();
-    servo7.write(pos3);}}
+    servo7.write(pos7);}}
    if(pos7<degree){
     if((addtime-time7)>speed){
     pos7=pos7+1;
@@ -107,5 +107,7 @@ void print_servo(){
   Serial.print(pos5);
   Serial.print("  ");
   Serial.print(pos6);
+  Serial.print("  ");
+  Serial.print(pos7);
   Serial.println();
 }

@@ -42,10 +42,10 @@ Servo servo5;
 Servo servo6;
 Servo servo7;
 int home1_=80,home2_=130,home3_=180,home4_=100,home6_=58,home5_,home7_=65;//folded out positition, prepare to take (degree)
-int home1=91,home2=53,home3=0,home4=90,home5=90,home6=58,home7=138;//load-off payload 91 53 0 148
+int home1=91,home2=43,home3=0,home4=90,home5=90,home6=58,home7=138;//load-off payload 91 53 0 148
 int home1_30=91,home2_30=115,home3_30=59,home4_30=90,home5_30=90,home6_30=58,home7_30=138;//start position (hand folded <30cm)
 int pos1=home1_30,pos2=home2_30,pos3=home3_30,pos4=home4_30,pos5=home5_30,pos6=home6_30,pos7=home7_30;
-int balance1=91,balance2=81,balance3=47;
+int balance1=91,balance2=81,baance3=47;
 //balance 91 81 47   91 120 90
 int min_speed=20,max_speed=8;//servo delay time
 int sdelayt=20,delayt=max_speed,loading=0;
@@ -156,19 +156,26 @@ void setup() {
   //*///<--------------------------------------------------------------------------------------------------------------------------------------------------------------------------
 }
 
+//all 90 degreee
+//90 120 128
+//pos 3 max = 180-128
+//pos 2 lowest 45
 
+//nearest object pos2 58 pos3 180 dist 37cm
+//farther object pos2 40 pos3 136 dist 40cm
 void loop() {
   print_encoder();
   wait_start_button=millis();
   press_count=0;first_3rd_pos=false;
   while((millis()-wait_start_button)<2000){
     if(press_count==0){wait_start_button=millis();}
+    else {run();}
     if(digitalRead(42)==1){debounce_timer=millis();reset_button=false;}
-    if(((millis()-debounce_timer)>100) && reset_button==false){press_count++;reset_button=true;Serial.println("press detected");}
+    if(((millis()-debounce_timer)>100) && reset_button==false){press_count++;reset_button=true;Serial.println("press detected");reset_encoder();}
     //Serial.println(press_count);
     //run();//<--------------------------------------------------------------------------------------------------------------------------------------------on D-day!!!!!!!!!!!!!!!!!!
     //print_sensor();
-    rc_v02();//print_servo();//<-------------------------------------------------------------------------------------------------------------------------------------------on D-day!!!!!!!!!!!!!!!!!!
+    rc_v02();print_servo();//<-------------------------------------------------------------------------------------------------------------------------------------------on D-day!!!!!!!!!!!!!!!!!!
     
   }
   if(use_compass){
@@ -179,8 +186,23 @@ void loop() {
   reset_encoder();
   Serial.print("button count: ");Serial.println(press_count);
   if(press_count==1){
-    one_press();
+    while(pos3!=60){servo3_go(20,60);run();}
+    while(pos6!=155){servo6_go(20,155);run();}
+    wait(1000);
+    while(pos7!=40){servo7_go(20,40);run();}
+    //while(pos7!=55){servo7_go(20,55);run();}
+   // wait(1000);
+    //while(pos7!=10){servo7_go(8,10);run();}
+    wait(1000);
+    while(pos6!=58){servo6_go(20,58);run();}
+    //wait(500);
+    while(pos7!=138){servo7_go(5,138);run();}
+    
     //one_press();
+    //one_press();
+    //pos7 65 min//opem
+   //pos7 147 max closed
+   //pos7 138 oopen a little
     }  
   if(press_count==2){follow_right_down_back_A2_A4(370);}//second_post();}
 
