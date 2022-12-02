@@ -7,21 +7,23 @@ void second_post(){
 
   forward_degree(120,1400);wait(500);//「前進」到第一個20
   to_the_left(); //撞牆矯正
+  side_time(100,200);
   cal_right(310);wait(1000);//靠右矯正
-  forward_degree(120,620);wait(1000);//前進
-  side_degree(110,-600);wait(1000);//左移 
-  forward_degree(130,870);wait(500);//「前進」到第一個40
+  forward_degree(120,890);wait(1000);//前進
+  side_degree(110,-560);wait(1000);//左移 
+  forward_degree(130,690);wait(500);//「前進」到第一個40
   to_the_left();//撞牆矯正
+  side_time(100,200);
   cal_right(310);wait(1000);//靠右矯正
-  forward_degree(130,730);wait(1000);//前進
-  side_degree(120,400);wait(1000);//右移 
-  forward_degree(130,650);wait(500);//「前進」到第一個60
+  forward_degree(130,720);wait(1000);//前進
+  side_degree(120,415);wait(1000);//右移 
+  forward_degree(130,640);wait(500);//「前進」到第一個60
   }
 
 void to_the_left()//撞牆矯正
 {
-    side_time(-140,800);
-    side_time(-100,500);wait(1000);
+    side_time(-110,300);
+    side_time(-100,300);wait(1000);
 }
 void cal_compass(int degree){
     Serial.println("hi compass");

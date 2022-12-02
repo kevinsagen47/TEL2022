@@ -187,9 +187,8 @@ void loop() {
     Serial.print("button count: ");Serial.println(press_count);
   if(press_count==1)
   { 
-
-    //one_press();
-
+    one_press();
+  /*
   timee=millis();
   timeee=millis();
   //while((timee-timeee)<4200){
@@ -199,9 +198,10 @@ void loop() {
     m1f(190);
     m4f(210);
     timee=millis();
-  }
-  reset_encoder();
-  wait(500);
+   }
+   reset_encoder();
+   wait(500);
+   */
     }  
 
   if(press_count==2)

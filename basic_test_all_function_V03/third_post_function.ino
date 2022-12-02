@@ -1,5 +1,6 @@
 void third_post(){
   to_the_left();//撞牆矯正
+  side_time(100,200);
   cal_right(280);wait(1000);//靠右矯正
 
   forward_degree(170,1100);
@@ -7,7 +8,7 @@ void third_post(){
   timee=millis();
   timeee=millis();
   //while((timee-timeee)<4200){
-  while(((timee-timeee)<3200) || analogRead(A1)<490){
+  while(((timee-timeee)<3500) || analogRead(A1)<430){
     m2f(250);
     m3f(230);
     m1f(190);
@@ -15,9 +16,9 @@ void third_post(){
     timee=millis();
   }
   reset_encoder();
-  wait(500);
+  //wait(500);
   //while(pos2!=115 || pos3!=59){servo2_go(15,115);run();servo3_go(15,59);run();}
-  forward_degree(120,-250);wait(500);
+  forward_degree(120,-200);wait(500);
   turn_degree(140,-150);wait(1000);
   while(analogRead(A6)>180&&analogRead(A7)>180)forward_speed(-90);
   wait(500);
@@ -33,4 +34,12 @@ void third_post(){
     
   while (analogRead(A6)>180 && analogRead(A7)>180)
   {m1b(170);m4b(170); m2b(70);m3b(70);}reset_encoder();wait(1000);
-  side_degree(150,800);}
+  //forward_degree(120,60);wait(1000);
+  while(pos1!=160){servo1_go(15,160);run();}
+  while(pos1!=91 ){servo1_go(15,91);run();}
+  //while(pos2!=home2_30 ){servo2_go(15,home2_30);run();}
+  //while(pos3!=50 ){servo3_go(15,50);run();}
+  forward_degree(120,700);wait(1000);
+  side_degree(150,1000);
+  wait(1000);
+  }
