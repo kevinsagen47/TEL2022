@@ -214,7 +214,7 @@ void loop() {
     while(pos2!=81 ){servo2_go(15,81);run();}
     while(pos3!=47 ){servo3_go(15,47);run();}
     side_degree(120,200);wait(500);//!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!
-    forward_degree(120,-600);wait(500);
+    forward_degree(120,-620);wait(500);
     third_post();
 
     Serial.println(press_count);
