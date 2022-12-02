@@ -1,5 +1,5 @@
 void second_post(){
-   follow_right_down_back_A2_A4(210);wait(500);//follow_dist<--------------------------------
+   follow_right_down_back_A2_A4(follow_dist);wait(500);//follow_dist<--------------------------------
    side_degree(60,-110);wait(1000);
    cal_back(380);wait(1000);
    forward_degree(120,120);wait(1000);
