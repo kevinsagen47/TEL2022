@@ -1,5 +1,5 @@
 void second_post(){
-   follow_right_down_back_A2_A4(follow_dist);wait(500);//220<--------------------------------
+   follow_right_down_back_A2_A4(210);wait(500);//follow_dist<--------------------------------
    side_degree(60,-110);wait(1000);
    cal_back(380);wait(1000);
    forward_degree(120,120);wait(1000);
@@ -10,10 +10,10 @@ void second_post(){
   cal_right(310);wait(1000);//靠右矯正
   forward_degree(120,620);wait(1000);//前進
   side_degree(110,-600);wait(1000);//左移 
-  forward_degree(130,900);wait(500);//「前進」到第一個40
+  forward_degree(130,870);wait(500);//「前進」到第一個40
   to_the_left();//撞牆矯正
   cal_right(310);wait(1000);//靠右矯正
-  forward_degree(130,750);wait(1000);//前進
+  forward_degree(130,730);wait(1000);//前進
   side_degree(120,400);wait(1000);//右移 
   forward_degree(130,650);wait(500);//「前進」到第一個60
   }

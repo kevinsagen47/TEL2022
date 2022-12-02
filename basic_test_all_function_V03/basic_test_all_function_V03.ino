@@ -17,10 +17,10 @@ int _offset1=0,_offset2=0,_offset3=0,_offset4=0;//pwm backwards(後退四輪速�
 int cal_speed=65;//75太慢 第二關無法矯正
 int cal_back_speed=69;
 int cal_back_speed_cliff=75;
-int cal_side_speed=87;
-int follow_dist=150;//high 150 floor 190<------------------------------------------------------------------------------------------------------------------------------------!!!!!!!!!!!!!!!
+int cal_side_speed=88;
+int follow_dist=200;//high 150 floor 190<---------------------------------------------------------------------------------------------------------------!!!!!!!!!!!!!!!
 int follow_speed=110;//走在邊邊，左右邊的輪子矯正的速度(一邊兩顆馬達的速度)
-int follow_tol=50;//high=50, floor=5<----------------------------------------------------------------------------------------------------------------------------------------!!!!!!!!!!!!!!
+int follow_tol=5;//high=50, floor=5<---------------------------------------------------------------------------------------------------------------------!!!!!!!!!!!!!!
 bool speed_correction=false;//ture=要測四輪的速度 prints speed, degree/100ms
 int tol_time=1000;
 bool use_compass=false;
@@ -182,20 +182,26 @@ void loop() {
     rc_v02();//print_servo();//<-------------------------------------------------------------------------------------------------------------------------------------------on D-day!!!!!!!!!!!!!!!!!!
     
   }
-  if(use_compass){
-    compass.read();
-    azimuth = compass.getAzimuth();
-    start_angle=azimuth;
-    Serial.println(start_angle);}
+
     reset_encoder();
     Serial.print("button count: ");Serial.println(press_count);
   if(press_count==1)
-  {
-    one_press();
-    //put_3_blocks() ;
-    //pos7 65 min//opem
-    //pos7 147 max closed
-    //pos7 138 oopen a little
+  { 
+
+    //one_press();
+
+  timee=millis();
+  timeee=millis();
+  //while((timee-timeee)<4200){
+  while(((timee-timeee)<3200) || analogRead(A1)<500){
+    m2f(250);
+    m3f(230);
+    m1f(190);
+    m4f(210);
+    timee=millis();
+  }
+  reset_encoder();
+  wait(500);
     }  
 
   if(press_count==2)

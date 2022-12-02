@@ -1,11 +1,26 @@
 void third_post(){
   to_the_left();//撞牆矯正
-  cal_right(310);wait(1000);//靠右矯正
+  cal_right(280);wait(1000);//靠右矯正
 
   forward_degree(170,1100);
-  forward_time(210,4200);wait(1000);//衝上斜坡
+  //forward_time(210,4200);wait(1000);//衝上斜坡
+  timee=millis();
+  timeee=millis();
+  //while((timee-timeee)<4200){
+  while(((timee-timeee)<3200) || analogRead(A1)<490){
+    m2f(250);
+    m3f(230);
+    m1f(190);
+    m4f(210);
+    timee=millis();
+  }
+  reset_encoder();
+  wait(500);
   //while(pos2!=115 || pos3!=59){servo2_go(15,115);run();servo3_go(15,59);run();}
-  turn_degree(140,-180);wait(1000);
+  forward_degree(120,-250);wait(500);
+  turn_degree(140,-150);wait(1000);
+  while(analogRead(A6)>180&&analogRead(A7)>180)forward_speed(-90);
+  wait(500);
   cal_back_cliff(210);wait(500);
   cal_right_slope(180);wait(500);
   cal_back_cliff(180);wait(500);
