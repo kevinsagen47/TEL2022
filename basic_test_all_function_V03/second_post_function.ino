@@ -1,6 +1,4 @@
 void second_post(){
-  while(pos2!=81 ){servo2_go(15,81);run();}
-  while(pos3!=47 ){servo3_go(15,47);run();}
    follow_right_down_back_A2_A4(220);wait(500);
    side_degree(60,-110);wait(1000);
    cal_back(380);wait(1000);
@@ -10,16 +8,14 @@ void second_post(){
   forward_degree(120,1400);wait(500);//「前進」到第一個20
   to_the_left(); //撞牆矯正
   cal_right(310);wait(1000);//靠右矯正
-  forward_degree(120,600);wait(1000);//前進
+  forward_degree(120,620);wait(1000);//前進
   side_degree(110,-600);wait(1000);//左移 
   forward_degree(130,900);wait(500);//「前進」到第一個40
   to_the_left();//撞牆矯正
   cal_right(310);wait(1000);//靠右矯正
   forward_degree(130,750);wait(1000);//前進
   side_degree(120,400);wait(1000);//右移 
-  forward_degree(130,660);wait(500);//「前進」到第一個60
-  to_the_left();//撞牆矯正
-  cal_right(310);wait(1000);//靠右矯正
+  forward_degree(130,650);wait(500);//「前進」到第一個60
   }
 
 void to_the_left()//撞牆矯正

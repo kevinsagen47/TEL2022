@@ -200,6 +200,8 @@ void loop() {
 
   if(press_count==2)
   {
+    while(pos2!=81 ){servo2_go(15,81);run();}
+    while(pos3!=47 ){servo3_go(15,47);run();}
     side_degree(120,400);wait(500);//第二關開始 要先右移一點點
     second_post();
     third_post();
@@ -209,8 +211,10 @@ void loop() {
 
   if(press_count==3)//press_count==3;
   {
-    side_degree(120,400);wait(500);//!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!尚未測試
-    forward_degree(120,-400);wait(500);
+    while(pos2!=81 ){servo2_go(15,81);run();}
+    while(pos3!=47 ){servo3_go(15,47);run();}
+    side_degree(120,200);wait(500);//!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!
+    forward_degree(120,-600);wait(500);
     third_post();
 
     Serial.println(press_count);
@@ -218,10 +222,9 @@ void loop() {
 
 
   if(press_count==4){
-    cal_compass2(73);
-    wait(1000);
-    cal_compass2(0);
-    Serial.println("DONEEE COMPASSS");//wait(500);
+  while(pos2!=81 ){servo2_go(15,81);run();}
+   while(pos3!=47 ){servo3_go(15,47);run();}
+      Serial.println(press_count);
     }
 
   if(press_count==5){second_post();  }
