@@ -16,7 +16,7 @@ void second_post(){
   side_time(100,200);
   cal_right(310);wait(1000);//靠右矯正
   forward_degree(130,720);wait(1000);//前進
-  side_degree(120,415);wait(1000);//右移 
+  side_degree(120,405);wait(1000);//右移 
   forward_degree(130,640);wait(500);//「前進」到第一個60
   }
 
